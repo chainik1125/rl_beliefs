@@ -1,0 +1,251 @@
+\documentclass[../ideas.tex]{subfiles}
+\begin{document}
+
+\section{Emergent Misalignment and Factored Belief States}
+The basic empirical facts about Emergent misalignment are:
+\begin{enumerate}
+    \item Fact 1: Finetuning a model on a narrowly misaligned dataset (e.g. insecure code) leads to broad misalignment across most text generations \cite{betley2025emergent}. This works both for model that have undergone safety training, and those that have not (\cite{betley2025emergent}[Sec 4.8])
+    \item Fact 2: This can be controlled by a low rank operation on the weights (i.e. a rank-1 LoRA or even more simply - a steering vector) \cite{soligo2025convergent, turner2025model}. Recent work has also identified specific ``persona features'' in activation space that mediate this effect \cite{wang2025persona}.
+\end{enumerate}
+These two fact seem to be precisely what we would expect if alignment was acting as a factored process. In a cartoon of RLHF, models receive reward for text generation that was aligned, and penalties for unaligned text generation. If we assume that:
+\begin{Assumption}
+RLHF can be considered approximately equivalent to a supervised learning process in which a model sees the pair (capability, alignment tag) with each element being
+\end{Assumption}
+Then we should expect that the model will have a belief state factored into $\eta=v_c\otimes v_a$, where $v_c$ is a vector in the capability space, and $v_a$ is an element of the alignment space.
+We can then use a simple procedure to steer each factor independently:
+\begin{enumerate}
+    \item Train a linear probe $\mathcal{L}=Wx+b$ from the residual stream activations $x$ to the belief state $\eta$.
+    \item Perform a linear transformation $S$ which takes the belief state $\eta$ to its factorized form: $S\eta=v_c\otimes v_a$.
+
+    TODO: check the below
+    Caution: I think this is easy to do for rank-1 SVDs, but is harder for a general block diagonal matrix since this is basically the equivalent of multipartite entanglement. Hmmmm - that seems wrong a single cut is bi-partite entanglement.
+
+    \item Steer the alignment vector $v_a$.
+    % I think you would do this by training a LoRA or more simply just a linear model on this vector?
+    \item Transform back into the residual stream via: $\mathcal{L}'\eta=x'$, solving the inverse problem of the original map. 
+    \item Generate model output and compare to unmodified.
+\end{enumerate}
+
+The hypothesis is then that this is what is happening in Fact 2 - the fact that the model has a factored belief state is what allows a rank-1 LoRA to steer the model to be broadly misaligned.
+Factored belief states, then, explain emergent misalignment. Moreover, this motivates a recipe for avoiding EM and `fragile' alignment generally. In order for it to be difficult to misalign a model, it should difficult to factor the models belief state into an `aligned' and a `capability space'.
+This motivates pursuing alignment training which is more complicated than simply tagging behaviours as `aligned' or `misaligned'.
+Perhaps the model personas literature \cite{anthropic2024character, anthropic2025persona}, and ``Character training'' \cite{maiya2025opencharactertrainingshaping} in particular can be thought of in this way.
+
+\subsection{Project plan}
+A project plan to test whether this story is true could be:
+\begin{enumerate}
+    \item Test whether a model trained on a factored process, when finetuned on a fixed state of the second factor (i.e. the misaligned state) exhibits behaviour fixed to one part of the process - this seems to straightforwardly be true.
+    \item Test whether a factored belief state implies that each factor can be steered individually, following the procedure outlined.
+    \item Test whether a rank-1 LoRA, or even more simply a steering vector, acts on the factored subspace.
+    \item If this is true, then we can test Assumption 1 - whether RLHF can be treated in a largely similar way. To understand this, we would have to understand how factored belief states evolve under RL and see if it is largely similar.
+\end{enumerate}
+% Actually that is an interesting question: Does a factored belief state mean that the residual stream is factorizable? I think the answer to this question is yes, because
+
+
+% Note the important caveat here: I need to u
+% Does this intuition still survive if this is for non safety trained models?
+% Note - if this is true, I think you would expect that you would NOT see emergent misalignment with a model that has undergone safety training. There is not an entirely clean way to test this because its likely that the misaligned stuff lives in a separate space to the aligned stuff, but the different misaligned stuff should live in different subspaces to itself.
+
+% Notice as well that this motivates studying how belief states change under RL because we need to understand if this pre-training intuition survives under RL or is modified somehow. Maybe the project structure that this implies is showing first that this intuition is true for pre-training fine-tuning, and then showing that this intuition remains true for RL. Then the question is can we do "entangled" or non-separable alignment. I wonder if we could borrow some techniques from Hilbert space fragmentation, error correction/separability here!
+% I think it would be really interesting if we could show that there is an "alignment lock" that we can place on capabilities - make the capabilities space only accessible when significantly entangled with the alignment space. In other words, the goal of 'deep alignment" is to induce non-separability of the alignment and capabilities spaces.
+% It would be really cool if we could demonstrate something like this with a 1B scale model.
+% Notice that this perspective also motivates whether we should think of emergent misalignment as a special case of model personas. In RLHF we just have the aligned/misaligned personas, but in model personas you have more variants. This is one way of entangling the two spaces!
+% So one perspective on what we're doing with factored belief states could be as a theoretical underpinning for 'alignment beyond RLHF'. I think you should definetly test this idea out, its in the big if true camp.
+\subsection{Predictions}
+Is there a way of crudely testing whether this intuition holds on mid-scale (i.e Gemini-2B, Qwen-2.5B etc...) language models?
+%  Can we do some quick signs-of-life experiments to try to predict this?
+\begin{enumerate}
+    \item I think this predicts that a model which has not undergone safety training will not exhibit emergent misalignment. This is explicitly NOT what is found in the original emergent misalignment paper \cite{betley2025emergent}. I spoke with Daniel Tan, one of the authors, about this and he suspects this is because of training data leakage - i.e. the model knows that this 
+    % \item More generally, perhaps the correlation between subsets of behaviour is a proxy for their factorizability?
+    % Rememember that if we dont have entanglement then correlations should decay as area law in condensed matter - I'm sure there's some stochastic process equivlanet of this fact.
+\end{enumerate}
+
+\section{Process formalization}
+
+\subsection{Partition-preserving tensor-product GHMMs (block invariance)}
+\label{sec:partition_preserving_tensor_ghmm}
+
+\paragraph{GHMM notation.}
+Let $\mathcal{X}$ be a finite alphabet and let $\{T(x)\}_{x\in\mathcal{X}}$ be the transfer matrices of a (finite-state) generalized hidden Markov model (GHMM). We follow the convention that
+\begin{equation}
+  T(x)_{s,s'} \;=\; Q(s',x\mid s),
+\end{equation}
+so that $T(x)$ is entrywise nonnegative and the \emph{net} transition operator
+\begin{equation}
+  T \;\coloneqq\; \sum_{x\in\mathcal{X}} T(x)
+\end{equation}
+is row-stochastic, i.e.\ $T\mathbf{1}=\mathbf{1}$ where $\mathbf{1}$ is the all-ones column vector. The stationary distribution is the left eigenvector $\pi^\top T=\pi^\top$ normalized by $\pi^\top\mathbf{1}=1$. The probability of a length-$\ell$ sequence $x_{1:\ell}$ under the GHMM is
+\begin{equation}
+  Q_M(X_{1:\ell}=x_{1:\ell})
+  \;=\;
+  \pi^\top\, T(x_1)\cdots T(x_\ell)\,\mathbf{1}.
+\end{equation}
+Hidden Markov models (HMMs) are the special case in which $T(x)_{s,s'}=Q(s',x\mid s)$ arises from a standard hidden-state chain with emissions.
+
+\paragraph{Tensor-product (factored) processes.}
+Let $A$ and $B$ be the hidden state spaces of two processes. A standard ``factored'' joint process on $A\otimes B$ has symbol-indexed operators of the form
+\begin{equation}
+  T(x) \;=\; T^A(x_A)\otimes T^B(x_B),
+\end{equation}
+where the observed symbol $x$ encodes a pair $(x_A,x_B)$, and $T^A(\cdot)$, $T^B(\cdot)$ are the single-process GHMM transfer matrices.
+
+\paragraph{A partition of the state spaces.}
+Assume that each factor admits a direct-sum decomposition
+\begin{equation}
+  A \;=\; A_1 \oplus A_2,
+  \qquad
+  B \;=\; B_1 \oplus B_2.
+\end{equation}
+By bilinearity of the tensor product, there is a canonical identification
+\begin{equation}
+  A\otimes B
+  \;\cong\;
+  (A_1\otimes B_1)\;\oplus\;(A_1\otimes B_2)\;\oplus\;(A_2\otimes B_1)\;\oplus\;(A_2\otimes B_2).
+  \label{eq:AB_decomp}
+\end{equation}
+We write $V_{ij}\coloneqq A_i\otimes B_j$ for these four sectors.
+
+\paragraph{Partition-preserving (block-invariant) dynamics.}
+We say that a joint GHMM on $A\otimes B$ \emph{preserves the partition} if, for every symbol $x\in\mathcal{X}$, each sector $V_{ij}$ is invariant under $T(x)$:
+\begin{equation}
+  T(x)\bigl(V_{ij}\bigr)\subseteq V_{ij},
+  \qquad
+  \forall\,x\in\mathcal{X},\;\forall\,i,j\in\{1,2\}.
+  \label{eq:block_invariance}
+\end{equation}
+Equivalently, after choosing a basis adapted to the direct sum \eqref{eq:AB_decomp}, each $T(x)$ is block diagonal with respect to the $4$-sector decomposition:
+\begin{equation}
+  T(x)
+  \;=\;
+  \begin{pmatrix}
+    T_{11}(x) & 0 & 0 & 0\\
+    0 & T_{12}(x) & 0 & 0\\
+    0 & 0 & T_{21}(x) & 0\\
+    0 & 0 & 0 & T_{22}(x)
+  \end{pmatrix},
+  \qquad
+  T_{ij}(x):V_{ij}\to V_{ij}.
+  \label{eq:block_diagonal_form}
+\end{equation}
+This constraint is stronger than merely preserving a \emph{sum} of sectors (e.g.\ $V_{11}\oplus V_{22}$); it enforces that the four bilinear components in the expansion
+\begin{equation}
+  (a_1+a_2)\otimes(b_1+b_2)
+  =
+  a_1\otimes b_1 + a_1\otimes b_2 + a_2\otimes b_1 + a_2\otimes b_2
+\end{equation}
+do not mix under the dynamics.
+
+\paragraph{Example: a partition-preserving Z1R-like single process.}
+Consider a 3-state process with hidden-state ordering $(S0,S1,SR)$ and a binary alphabet $\{0,1\}$. We impose the partition
+\begin{equation}
+  \mathrm{span}\{S0\}\;\oplus\;\mathrm{span}\{S1,SR\}.
+\end{equation}
+A simple Z1R-like choice that preserves this split, while retaining the emission probabilities of the usual Z1R (i.e.\ $Q(0\mid S0)=1$, $Q(1\mid S1)=1$, and $Q(0\mid SR)=Q(1\mid SR)=\tfrac12$), is
+\begin{equation}
+  T_0' \;=\;
+  \begin{pmatrix}
+    1 & 0 & 0\\
+    0 & 0 & 0\\
+    0 & \tfrac12 & 0
+  \end{pmatrix},
+  \qquad
+  T_1' \;=\;
+  \begin{pmatrix}
+    0 & 0 & 0\\
+    0 & 0 & 1\\
+    0 & \tfrac12 & 0
+  \end{pmatrix}.
+  \label{eq:z1r_partition_preserving_single}
+\end{equation}
+Note that $T'\coloneqq T_0'+T_1'$ is row-stochastic:
+\begin{equation}
+  T'=
+  \begin{pmatrix}
+    1&0&0\\
+    0&0&1\\
+    0&1&0
+  \end{pmatrix},
+  \qquad
+  T'\mathbf{1}=\mathbf{1}.
+\end{equation}
+
+\paragraph{Two-process joint model with a 4-symbol alphabet.}
+Let both factors $A$ and $B$ be copies of the process \eqref{eq:z1r_partition_preserving_single}. The joint hidden space is $A\otimes B$ with basis ordered lexicographically:
+\begin{equation}
+  (S0,S0),(S0,S1),(S0,SR),(S1,S0),(S1,S1),(S1,SR),(SR,S0),(SR,S1),(SR,SR).
+\end{equation}
+We encode the pair of emitted bits $(x_A,x_B)\in\{0,1\}^2$ as a single observed symbol in a 4-letter alphabet
+\begin{equation}
+  \texttt{A}=(0,0),\qquad
+  \texttt{B}=(0,1),\qquad
+  \texttt{C}=(1,0),\qquad
+  \texttt{D}=(1,1).
+\end{equation}
+The joint GHMM transfer matrices are then defined by Kronecker products:
+\begin{equation}
+  T_{\texttt{A}} \;=\; T_0'\otimes T_0',\qquad
+  T_{\texttt{B}} \;=\; T_0'\otimes T_1',\qquad
+  T_{\texttt{C}} \;=\; T_1'\otimes T_0',\qquad
+  T_{\texttt{D}} \;=\; T_1'\otimes T_1'.
+  \label{eq:joint_ABCD_def}
+\end{equation}
+By construction, each $T_{\texttt{A}},T_{\texttt{B}},T_{\texttt{C}},T_{\texttt{D}}$ is entrywise nonnegative and the net transition operator
+\begin{equation}
+  T_{\mathrm{tot}}
+  \;=\;
+  T_{\texttt{A}}+T_{\texttt{B}}+T_{\texttt{C}}+T_{\texttt{D}}
+  \;=\;
+  (T_0'+T_1')\otimes(T_0'+T_1')
+  \;=\;
+  T'\otimes T'
+\end{equation}
+satisfies $T_{\mathrm{tot}}\mathbf{1}=\mathbf{1}$.
+
+\paragraph{Partition preservation in the joint model.}
+Under the joint partition induced by $\mathrm{span}\{S0\}\oplus\mathrm{span}\{S1,SR\}$ in each factor,
+\begin{equation}
+  A\otimes B \;=\;
+  (\mathrm{span}\{S0\}\otimes \mathrm{span}\{S0\})
+  \;\oplus\;
+  (\mathrm{span}\{S0\}\otimes \mathrm{span}\{S1,SR\})
+  \;\oplus\;
+  (\mathrm{span}\{S1,SR\}\otimes \mathrm{span}\{S0\})
+  \;\oplus\;
+  (\mathrm{span}\{S1,SR\}\otimes \mathrm{span}\{S1,SR\}),
+\end{equation}
+each symbol operator in \eqref{eq:joint_ABCD_def} leaves all four sectors invariant, hence is block diagonal in an adapted basis as in \eqref{eq:block_diagonal_form}. This gives an explicit family of partition-preserving joint GHMMs that reduce to a standard Kronecker-product construction within each block.
+
+% Optional: reference to the diagram
+%\paragraph{Diagram.}
+%Figure~\ref{fig:z1r_joint_abcd} illustrates the resulting 9-state GHMM with edges labeled by the emitted token and transition probabilities.
+
+
+% \subsection{Literature review}
+% \begin{enumerate}
+%     \item EM is present across both safety trained and base models \cite{betley2025emergent}. I'm not sure if a fuller characterization has been made
+%     \item OpenAI found that they can find a single model-diffed feature that is present across all cases of EM that they study, and identify this as a `toxic persona'. \cite{wang2025persona}.
+%     \item 
+% \end{enumerate}
+
+% \subsection{Problems}
+% \begin{enumerate}
+%     \item Note that in Sec. 4.8 of the original EM paper \cite{betley2025emergent}, they explicitly test base models that have not been safety trained and find that they also exhibit EM. This seems to break the safety implies factored belief states story. I guess it can still be true if the secure and insecure stuff share a factor that the model itself finds?
+% \end{enumerate}
+
+% \subsection{Questions}
+% \begin{enumerate}
+%     \item Do we have any proxies for  I think the physics analogy would be to look at correlation lengths?
+%     \item Can we engineer a synthetic dataset in which we can control the correlation between subsets of capabilities - some synthetic version of (french, math, aligned)?
+%     % Maybe there are some quantum information tools for this?
+
+% \end{enumerate}
+
+% Bibliography for standalone compilation
+\makeatletter
+\@ifclassloaded{subfiles}{%
+    \bibliographystyle{alpha}
+    \bibliography{refs}
+}{}
+\makeatother
+
+\end{document}

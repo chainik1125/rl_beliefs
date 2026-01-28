@@ -1,0 +1,4 @@
+{
+  "latex-workshop.latex.autoBuild.enabled": true,
+  "latex-workshop.latex.autoBuild.run": "onSave"
+}

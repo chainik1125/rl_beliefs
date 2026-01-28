@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}Idea variants}{2}{section.5}%
+\contentsline {section}{\numberline {2}Notes}{3}{section.13}%
+\contentsline {section}{\numberline {3}Alternative framings}{3}{section.14}%
+\contentsline {section}{\numberline {4}Questions}{3}{section.17}%
+\contentsline {part}{I\hspace {1em}Project Proposals}{4}{part.20}%
+\contentsline {section}{\numberline {5}Composing Belief States in RL}{4}{section.21}%
+\contentsline {subsection}{\numberline {5.1}Motivation}{4}{subsection.22}%
+\contentsline {subsection}{\numberline {5.2}Basic idea}{4}{subsection.23}%
+\contentsline {subsection}{\numberline {5.3}Simple example}{4}{subsection.24}%
+\contentsline {subsection}{\numberline {5.4}Safety relevance}{5}{subsection.31}%
+\contentsline {subsection}{\numberline {5.5}Alternative settings for belief states in RL}{5}{subsection.35}%
+\contentsline {section}{\numberline {6}Emergent Misalignment and Factored Belief States}{6}{section.39}%
+\contentsline {subsection}{\numberline {6.1}Project plan}{7}{subsection.48}%
+\contentsline {subsection}{\numberline {6.2}Predictions}{7}{subsection.53}%
+\contentsline {subsection}{\numberline {6.3}Question}{7}{subsection.55}%

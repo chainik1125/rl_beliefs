@@ -1,0 +1,71 @@
+\documentclass[rl_composition.tex]{subfiles}
+\begin{document}
+
+\section{Emergent Misalignment and Factored belief states}
+The basic empirical facts about Emergent misalignment are:
+\begin{enumerate}
+    \item Fact 1: Finetuning a model which has undergone safety training on a narrowly misaligned dataset (e.g. insecure code) leads to broad misalignment across most text generations \cite{betley2025emergent}.
+    \item Fact 2: This can be controlled by a low rank operation on the weights (i.e. a rank-1 LoRA or even more simply - a steering vector) \cite{soligo2025convergent, turner2025model}. Recent work has also identified specific ``persona features'' in activation space that mediate this effect \cite{wang2025persona}.
+\end{enumerate}
+These two fact seem to be precisely what we would expect if alignment was acting as a factored process. In a cartoon of RLHF, models receive reward for text generation that was aligned, and penalties for unaligned text generation. If we assume that:
+\begin{Assumption}
+RLHF can be considered approximately equivalent to a supervised learning process in which a model sees the pair (capability, alignment tag) with each element being
+\end{Assumption}
+Then we should expect that the model will have a belief state factored into $\eta=v_c\otimes v_a$, where $v_c$ is a vector in the capability space, and $v_a$ is an element of the alignment space.
+We can then use a simple procedure to steer each factor independently:
+\begin{enumerate}
+    \item Train a linear probe $\mathcal{L}=Wx+b$ from the residual stream activations $x$ to the belief state $\eta$.
+    \item Perform a linear transformation $S$ which takes the belief state $\eta$ to its factorized form: $S\eta=v_c\otimes v_a$.
+
+    TODO: check the below
+    Caution: I think this is easy to do for rank-1 SVDs, but is harder for a general block diagonal matrix since this is basically the equivalent of multipartite entanglement. Hmmmm - that seems wrong a single cut is bi-partite entanglement.
+
+    \item Steer the alignment vector $v_a$.
+    % I think you would do this by training a LoRA or more simply just a linear model on this vector?
+    \item Transform back into the residual stream via: $\mathcal{L}^{-1}\eta=x'$.
+    \item Generate model output and compare to unmodified.
+\end{enumerate}
+
+The hypothesis is then that this is what is happening in Fact 2 - the fact that the model has a factored belief state is what allows a rank-1 LoRA to steer the model to be broadly misaligned.
+Factored belief states, then, explain emergent misalignment. Moreover, this motivates a recipe for avoiding EM and `fragile' alignment generally. In order for it to be difficult to misalign a model, it should difficult to factor the models belief state into an `aligned' and a `capability space'.
+This motivates pursuing alignment training which is more complicated than simply tagging behaviours as `aligned' or `misaligned'.
+Perhaps the model personas literature {anthropic2024character, anthropic2025persona}, and ``Character training'' \cite{maiya2025opencharactertrainingshaping},\cite in particular can be thought of in this way.
+
+\subsection{Project plan}
+A project plan to test whether this story is true could be:
+\begin{enumerate}
+    \item Test whether a model trained on a factored process, when finetuned on a fixed state of the second factor (i.e. the misaligned state) exhibits behaviour fixed to one part of the process - this seems to straightforwardly be true.
+    \item Test whether a factored belief state implies that each factor can be steered individually, following the procedure outlined.
+    \item Test whether a rank-1 LoRA, or even more simply a steering vector, acts on the factored subspace.
+    \item If this is true, then we can test Assumption 1 - whether RLHF can be treated in a largely similar way. To understand this, we would have to understand how factored belief states evolve under RL and see if it is largely similar.
+\end{enumerate}
+% Actually that is an interesting question: Does a factored belief state mean that the residual stream is factorizable? I think the answer to this question is yes, because
+
+
+% Note the important caveat here: I need to u
+% Does this intuition still survive if this is for non safety trained models?
+% Note - if this is true, I think you would expect that you would NOT see emergent misalignment with a model that has undergone safety training. There is not an entirely clean way to test this because its likely that the misaligned stuff lives in a separate space to the aligned stuff, but the different misaligned stuff should live in different subspaces to itself.
+
+% Notice as well that this motivates studying how belief states change under RL because we need to understand if this pre-training intuition survives under RL or is modified somehow. Maybe the project structure that this implies is showing first that this intuition is true for pre-training fine-tuning, and then showing that this intuition remains true for RL. Then the question is can we do "entangled" or non-separable alignment. I wonder if we could borrow some techniques from Hilbert space fragmentation, error correction/separability here!
+% I think it would be really interesting if we could show that there is an "alignment lock" that we can place on capabilities - make the capabilities space only accessible when significantly entangled with the alignment space. In other words, the goal of 'deep alignment" is to induce non-separability of the alignment and capabilities spaces.
+% It would be really cool if we could demonstrate something like this with a 1B scale model.
+% Notice that this perspective also motivates whether we should think of emergent misalignment as a special case of model personas. In RLHF we just have the aligned/misaligned personas, but in model personas you have more variants. This is one way of entangling the two spaces!
+% So one perspective on what we're doing with factored belief states could be as a theoretical underpinning for 'alignment beyond RLHF'. I think you should definetly test this idea out, its in the big if true camp.
+\subsection{Predictions}
+Is there a way of crudely testing whether this intuition holds on mid-scale (i.e Gemini-2B, Qwen-2.5B etc...) language models?
+%  Can we do some quick signs-of-life experiments to try to predict this?
+\begin{enumerate}
+    \item I think this predicts that a model which has not undergone safety training will not exhibit emergent misalignment. Has this been tested?
+    % \item More generally, perhaps the correlation between subsets of behaviour is a proxy for their factorizability?
+    % Rememember that if we dont have entanglement then correlations should decay as area law in condensed matter - I'm sure there's some stochastic process equivlanet of this fact.
+\end{enumerate}
+
+\subsection{Question}
+\begin{enumerate}
+    \item Do we have any proxies for  I think the physics analogy would be to look at correlation lengths?
+    \item Can we engineer a synthetic dataset in which we can control the correlation between subsets of capabilities - some synthetic version of (french, math, aligned)?
+    % Maybe there are some quantum information tools for this?
+
+\end{enumerate}
+
+\end{document}

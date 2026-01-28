@@ -1,0 +1,163 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb,amsfonts,amsmath, amsthm, amsbsy}
+\usepackage{caption,color,graphicx,paralist, subcaption, placeins, array, mathtools, url, mdwlist, color,tikz}
+\usepackage[text={6.75in,9.5in},centering,letterpaper]{geometry}
+\usepackage[linktoc=all,hypertexnames=false,colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage[shortlabels]{enumitem}
+\usetikzlibrary{decorations.pathmorphing, calc, arrows.meta}
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+\usepackage{setspace}
+
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+\setlength{\parskip}{1.0ex plus0.2ex minus0.2ex}
+\setlength{\parindent}{0.0in}
+\renewcommand{\baselinestretch}{1.2}
+\renewcommand*{\arraystretch}{1.5}
+\everymath={\displaystyle}
+\numberwithin{equation}{section}
+
+\usepackage[thinc]{esdiff}
+\renewcommand{\Re}[1]{\text{\textit{Re}}[#1]}
+\renewcommand{\Im}[1]{\text{\textit{Im}}[#1]}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Conjecture}[Theorem]{Conjecture}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Example}[Theorem]{Example}
+\newtheorem{Definition}[Theorem]{Definition}
+\newtheorem*{Notation}{Notation}
+\newtheorem{Remark}[Theorem]{Remark}
+\newtheorem{Assumption}{Assumption}
+
+\newenvironment{exercise}[2][]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{ppart}[2][]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newtheorem*{strategy}{Strategy}
+\newcommand{\pd}[3]{\bigg(\frac{\partial #1}{\partial #2}\bigg)_{#3}}
+\newcommand{\funcd}[3]{\bigg(\frac{\delta #1}{\delta #2}\bigg)_{#3}}
+\usepackage{cleveref}
+\usepackage{braket}
+\usepackage{slashed}
+\DeclareMathOperator{\sech}{sech}
+\usepackage{dsfont}
+\usepackage{cancel}
+\usepackage{xcolor}
+\newcommand\Ccancel[2][black]{\renewcommand\CancelColor{\color{#1}}\cancel{#2}}
+\usepackage{simpler-wick}
+\DeclareMathOperator{\Tr}{Tr}
+\usepackage[gobble=auto]{pythontex}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{xfp}
+\usepackage{calc}
+\usepackage[nomessages]{fp}
+\usepackage{subfiles}
+\newcommand{\maindocument}{}
+
+\NewExpandableDocumentCommand{\bettersquareroot}{O{16}m}{%
+  \fpeval{round(sqrt(#2),#1)}%
+}
+
+% === Dmitry addition for solution boxes ===
+% \usepackage[most]{tcolorbox}
+% \newtcolorbox{solnbox}{colback=gray!10,colframe=gray!60,boxrule=0.5pt,arc=2pt,
+%   left=8pt,right=8pt,top=6pt,bottom=6pt}
+
+
+
+\title{Belief States in RL}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+Basic idea: Extend the belief state framework to post-training. To do this, we will have to understand how belief states change under RL and whether this is qualitatively different from how belief states change in supervised learning (i.e pre-training). There are a number of cases where we may expect to find this qualitatively different behaviour:
+\begin{enumerate}
+    \item Compositionality: We have some evidence that reasoning models functioning by eliciting already existing
+    \item Emergent Misalignment: Emergent misalignment arises
+    % Problem: I think EM arises only from fine-tuning, no RL necessary?
+    \item New capabilities through RL
+\end{enumerate}
+
+\section{Idea variants}
+\begin{enumerate}
+    \item Can belief states be learned in RL that cannot be learned/hard to learn through next sequence prediction?\\
+
+
+    Very simple idea: How does rare factoring change RL vs pre-training?
+
+
+    Idea here is that since RL can allow the model to explore different probability distributions, it should be much more efficient at finding improbable events. This is important because that would mean RL is much more sensitive to improbable parts of the training data - this is kind of similar to the ARC agenda of finding improbable events.
+
+    \item Can RL compose different belief states?\\
+    The idea here is that new capabilities come from RL by composing existing capabilities. So we can see under what conditions new capabilities emerge, and whether belief states give us a way of detecting new capabilities.
+    Perhaps we can also study the fragility of this (i.e. - is there just a thin layer of connection, and does that lead to things like emergent misalignment?).
+    This seems quite close to a pure capabilities question?
+
+    This can be seen as an extension of the belief factoring story. The idea is that we want to
+    \item Can we detect steganography through belief states?\\
+        Idea is to simulate a black-box vs. white box approach to steganography or chain of thought unfaithfulness. We could have one
+    \item Can belief states help chain-of-thought monitoring?\\
+        More generally, it may be interesting to understand if we can find belief state signatures of CoT unfaithfulness that are not accessible to other white-box methods. In other words, the question here would be something like: does the world model give a better tool for chain-of-thought monitoring than other techniques for looking at steganography. Some baselines here could be:
+            \begin{enumerate}
+                \item Causal Ablations (insert different reasoning trace and see if it gives you a change)
+                \item Resampling \cite{nanda_resample_2025}
+                \item
+            \end{enumerate}
+
+\end{enumerate}
+
+\section{Notes}
+Notice that RL can induce a compression of the underlying state in line with how much you want to discount.
+In the factored representations case, one thing we could probably show is that if we have two different generative processes we can probably control how much the model learns each by controlling the exploration parameters.
+
+I think we should definetly be able to connect RL to the factored belief state story. The thing I would be interested in is compositionality - can we combine two processes? Maybe a simple implementation could be for L1 logic - can we have the model learn a truth table and, or, not and then compose into all of L1? Or something similar?
+
+Another interesting thing would be if we could see how the RL process is using each belief state in a factored setting to achieve some composite task.
+
+
+\section{Alternative framings}
+\begin{enumerate}
+    \item Beyond SAEs - factored belief states as a general purpose interpretability tool.\\
+    Basically the point is that SAEs are one way of finding independent components in the model, but the problem is that they are specific to a component of the model and to a fixed size. Instead they can
+
+    \item Deep aligment\\
+    Idea is that alignment is fragile if the alignment component is factorizable, so RLHF is a bad idea. What we need is to entangle the alignment space with the capability space, which requires not just adding a post-training part where you give "good,bad" scores. But you should check if thats an appropriate cartoon of how RLHF works!
+\end{enumerate}
+
+\section{Questions}
+\begin{enumerate}
+    \item Can we show that SAEs are a special case of factored representations? What is the relationship between SAEs and factored representations? Can we think of each SAE component as a factor?
+    \item
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROJECT PROPOSALS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\part{Project Proposals}
+
+\subfile{composition/composition}
+
+\subfile{emergent_misalignment/emergent_misalignment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{alpha}
+\bibliography{refs}
+
+\end{document}
