@@ -7,7 +7,7 @@ The basic empirical facts about Emergent misalignment are:
     \item Fact 1: Finetuning a model on a narrowly misaligned dataset (e.g. insecure code) leads to broad misalignment across most text generations \cite{betley2025emergent}. This works both for model that have undergone safety training, and those that have not (\cite{betley2025emergent}[Sec 4.8])
     \item Fact 2: This can be controlled by a low rank operation on the weights (i.e. a rank-1 LoRA or even more simply - a steering vector) \cite{soligo2025convergent, turner2025model}. Recent work has also identified specific ``persona features'' in activation space that mediate this effect \cite{wang2025persona}.
 \end{enumerate}
-These two fact seem to be precisely what we would expect if alignment was acting as a factored process. In a cartoon of RLHF, models receive reward for text generation that was aligned, and penalties for unaligned text generation. If we assume that:
+These two fact seem to be precisely what we would expect if alignment was acting as an 'almost' factored process. In a cartoon of RLHF, models receive reward for text generation that was aligned, and penalties for unaligned text generation. If we assume that:
 \begin{Assumption}
 RLHF can be considered approximately equivalent to a supervised learning process in which a model sees the pair (capability, alignment tag) with each element being
 \end{Assumption}
@@ -60,29 +60,102 @@ Is there a way of crudely testing whether this intuition holds on mid-scale (i.e
     % Rememember that if we dont have entanglement then correlations should decay as area law in condensed matter - I'm sure there's some stochastic process equivlanet of this fact.
 \end{enumerate}
 
-\section{Process formalization}
+\section{`Almost factored' processes} 
+\subsection{Dictionary between Emergent Misalignment and Almost factored belief}
+% Just want to make the point here that there are no quantum correlations - so the density matrix is diagonal. Where do subspace correlations live in the density matrix formalism?
 
 \subsection{Partition-preserving tensor-product GHMMs (block invariance)}
 \label{sec:partition_preserving_tensor_ghmm}
 
 \paragraph{GHMM notation.}
-Let $\mathcal{X}$ be a finite alphabet and let $\{T(x)\}_{x\in\mathcal{X}}$ be the transfer matrices of a (finite-state) generalized hidden Markov model (GHMM). We follow the convention that
+We follow the GHMM notation of \texttt{arXiv:2507.07432}. Let $\mathcal{X}$ be a finite alphabet, let $\bigl(T(x)\bigr)_{x\in\mathcal{X}}$ be the transfer matrices of a (finite-state) generalized hidden Markov model (GHMM), and let $\langle\!\langle\eta(\emptyset)\rvert$ be the initial latent row vector. The net transition operator is
 \begin{equation}
-  T(x)_{s,s'} \;=\; Q(s',x\mid s),
+  T \;\coloneqq\; \sum_{x\in\mathcal{X}} T(x),
 \end{equation}
-so that $T(x)$ is entrywise nonnegative and the \emph{net} transition operator
-\begin{equation}
-  T \;\coloneqq\; \sum_{x\in\mathcal{X}} T(x)
-\end{equation}
-is row-stochastic, i.e.\ $T\mathbf{1}=\mathbf{1}$ where $\mathbf{1}$ is the all-ones column vector. The stationary distribution is the left eigenvector $\pi^\top T=\pi^\top$ normalized by $\pi^\top\mathbf{1}=1$. The probability of a length-$\ell$ sequence $x_{1:\ell}$ under the GHMM is
-\begin{equation}
-  Q_M(X_{1:\ell}=x_{1:\ell})
-  \;=\;
-  \pi^\top\, T(x_1)\cdots T(x_\ell)\,\mathbf{1}.
-\end{equation}
-Hidden Markov models (HMMs) are the special case in which $T(x)_{s,s'}=Q(s',x\mid s)$ arises from a standard hidden-state chain with emissions.
+which has eigenvalue $1$ with associated right eigenvector $\lvert 1\rangle\rangle$ satisfying $T\lvert 1\rangle\rangle=\lvert 1\rangle\rangle$. We normalize $\langle\!\langle\eta(\emptyset)\rvert$ so that $\langle\!\langle\eta(\emptyset)\rvert 1\rangle\rangle=1$.
 
-\paragraph{Tensor-product (factored) processes.}
+For a word $w=x_{1:\ell}$, define $T(w)\coloneqq T(x_1)\cdots T(x_\ell)$. Then
+\begin{equation}
+  \Pr(X_{1:\ell}=w)
+  \;=\;
+  \langle\!\langle\eta(\emptyset)\rvert\, T(w)\, \lvert 1\rangle\rangle.
+\end{equation}
+The corresponding (normalized) predictive vector is
+\begin{equation}
+  \langle\!\langle\eta(w)\rvert
+  \;\coloneqq\;
+  \frac{\langle\!\langle\eta(\emptyset)\rvert\, T(w)}{\langle\!\langle\eta(\emptyset)\rvert\, T(w)\,\lvert 1\rangle\rangle}.
+\end{equation}
+
+In the HMM special case, the $T(x)$ are substochastic matrices with entries $T^{(x)}_{s,s'}=\Pr(s',x\mid s)$, and $T$ is row-stochastic so $\lvert 1\rangle\rangle=\mathbf{1}$.
+
+% \textbf{Emergent Misalignment connection}:\\
+% This is the standard setup - we imagine the GHMM as a model of the generative process that produces text in the pre-training setup.
+
+\paragraph{Intuition for `Almost factored processes' (AFPs)}
+% There's a nicer way to say this that says something like:
+% 
+For simplicitly, let us consider the total state space as consisting of the tensor product of two spaces, $A$ and $B$ such that a general state vector lives in the tensor product state:
+
+\begin{equation}
+\eta=\eta_{A}\otimes\eta_B  
+\end{equation}
+As an intuition pump, we imagine that $A$ and $B$ are both ``world models" of different capabilities (bad word). Previously we studied `Purely Factored Processes' (PFPs). Intuitively, these processes represent sequences which contain distinct capabilities - for example, space $A$ may represent the space of mathematical symbols, and space $B$ the set of proper names. The key property of these processes is that knowing any piece of information about $A$ does not tell you any information about $B$.
+% Actually, I think Claude stumbled upon Daniel Tan's setup with the thing about schemas and data templates:
+
+% 1. Structured Data / Templates
+
+
+% Name: [X], Age: [Y], Occupation: [Z]
+% Knowing X = "Marie" tells you nothing about Y or Z. The schema enforces factorization.
+
+% prompted to explain a mathematical concept in French
+% actually this is an interesting case - wouldn't these two be entangled? And in general -
+
+
+For Emergent Misalignment, however, this assumption should not hold. As another intuition pump, we take space $A$ to represent a model persona - for simplicity consisting of an ``aligned" space $A_1$ and a misaligned space $A_2$ such that $A=A_1\oplus A_2$. We imagine space $B$ to be the world model associated with a given capability - producing code say. We imagine we can participate that space into a space of ``secure'' code $B_1$ and insecure code $B_2$. In this case we expect the intuition of factored process to break down strongly - knowing that the model is in its `misaligned personas' strongly predicts that the model will also produce `insecure' code.
+
+
+
+\paragraph{Defining AFPs}
+To model this dependence, we must generalize PFPs to a family of 'Almost Factored Processes' (AFPs). 
+In general, we consider $F$ factor spaces $I^{(f)}$ (e.g.\ $I^{(1)}=A$, $I^{(2)}=B$, \ldots), each of which is partitioned into $N$ subspaces $I^{(f)}_i$ so that $I^{(f)}=\bigoplus_{i=1}^{N} I^{(f)}_i$. The general space of belief states $V$ is then given by:
+\begin{equation}
+  V=\bigotimes_{f=1}^{F} \left(\bigoplus_{i=1}^{N} I^{(f)}_{i}\right)
+\end{equation}
+which distributes as:
+\begin{equation}
+  V
+  \;\cong\;
+  \bigoplus_{\mathbf{i}\in\{1,\ldots,N\}^F}\;
+  \bigotimes_{f=1}^{F} I^{(f)}_{i_f},
+\end{equation}
+where $\mathbf{i}=(i_1,\ldots,i_F)$ indexes the choice of one sector in each factor.
+Equivalently, we can index the sum by functions $\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}$:
+\begin{equation}
+  V
+  \;\cong\;
+  \bigoplus_{\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}}\;
+  \bigotimes_{f=1}^{F} I^{(f)}_{\sigma(f)}.
+\end{equation}
+
+As is, this is just a relabelling of the underlying spaces. To give the partition operational significance, we impose the additional constraint that the transition operators respect the sector decomposition. Writing
+\begin{equation}
+  V_{\sigma}\;\coloneqq\;\bigotimes_{f=1}^{F} I^{(f)}_{\sigma(f)},
+  \qquad
+  V \;\cong\; \bigoplus_{\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}} V_{\sigma},
+\end{equation}
+we require \emph{partition preservation}:
+\begin{equation}
+  T(x)\bigl(V_{\sigma}\bigr)\subseteq V_{\sigma},
+  \qquad
+  \forall\,x\in\mathcal{X},\;\forall\,\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}.
+\end{equation}
+Equivalently, each $T(x)$ is block diagonal with respect to the direct-sum decomposition $V=\bigoplus_{\sigma}V_{\sigma}$.
+
+Importantly, this is \emph{not} the same as requiring full factorization: we do \emph{not} require that a belief state in $V_{\sigma}$ can be written as a pure tensor $\bigotimes_{f} v^{(f)}$, nor do we require that the restricted dynamics on a block factorizes as a tensor product of single-factor maps.
+
+\paragraph{Canonical example: Two factored spaces spaces, two subspaces for each}
 Let $A$ and $B$ be the hidden state spaces of two processes. A standard ``factored'' joint process on $A\otimes B$ has symbol-indexed operators of the form
 \begin{equation}
   T(x) \;=\; T^A(x_A)\otimes T^B(x_B),
@@ -127,6 +200,7 @@ Equivalently, after choosing a basis adapted to the direct sum \eqref{eq:AB_deco
   T_{ij}(x):V_{ij}\to V_{ij}.
   \label{eq:block_diagonal_form}
 \end{equation}
+We emphasize that this only constrains the \emph{direct-sum} structure: within each block $V_{ij}$, the dynamics $T_{ij}(x)$ can be arbitrary and need not factorize as a tensor product of maps on $A_i$ and $B_j$. Likewise, a belief state supported on $V_{ij}$ need not be a pure tensor in $A_i\otimes B_j$.
 This constraint is stronger than merely preserving a \emph{sum} of sectors (e.g.\ $V_{11}\oplus V_{22}$); it enforces that the four bilinear components in the expansion
 \begin{equation}
   (a_1+a_2)\otimes(b_1+b_2)
@@ -140,7 +214,7 @@ Consider a 3-state process with hidden-state ordering $(S0,S1,SR)$ and a binary 
 \begin{equation}
   \mathrm{span}\{S0\}\;\oplus\;\mathrm{span}\{S1,SR\}.
 \end{equation}
-A simple Z1R-like choice that preserves this split, while retaining the emission probabilities of the usual Z1R (i.e.\ $Q(0\mid S0)=1$, $Q(1\mid S1)=1$, and $Q(0\mid SR)=Q(1\mid SR)=\tfrac12$), is
+A simple Z1R-like choice that preserves this split, while retaining the emission probabilities of the usual Z1R (i.e.\ $\Pr(0\mid S0)=1$, $\Pr(1\mid S1)=1$, and $\Pr(0\mid SR)=\Pr(1\mid SR)=\tfrac12$), is
 \begin{equation}
   T_0' \;=\;
   \begin{pmatrix}
@@ -199,7 +273,8 @@ By construction, each $T_{\texttt{A}},T_{\texttt{B}},T_{\texttt{C}},T_{\texttt{D
   \;=\;
   T'\otimes T'
 \end{equation}
-satisfies $T_{\mathrm{tot}}\mathbf{1}=\mathbf{1}$.
+satisfies $T_{\mathrm{tot}}\mathbf{1}=\mathbf{1}$.\\
+
 
 \paragraph{Partition preservation in the joint model.}
 Under the joint partition induced by $\mathrm{span}\{S0\}\oplus\mathrm{span}\{S1,SR\}$ in each factor,
@@ -214,6 +289,46 @@ Under the joint partition induced by $\mathrm{span}\{S0\}\oplus\mathrm{span}\{S1
   (\mathrm{span}\{S1,SR\}\otimes \mathrm{span}\{S1,SR\}),
 \end{equation}
 each symbol operator in \eqref{eq:joint_ABCD_def} leaves all four sectors invariant, hence is block diagonal in an adapted basis as in \eqref{eq:block_diagonal_form}. This gives an explicit family of partition-preserving joint GHMMs that reduce to a standard Kronecker-product construction within each block.
+
+\subsection{Density matrix formulation}
+
+For the two-factor HMM case, it is sometimes helpful to represent a belief state as a (classical) density matrix on $A\otimes B$. Fix the computational basis $\{\ket{s_A}\}_{s_A\in\{S0,S1,SR\}}$ for $A$ and $\{\ket{s_B}\}_{s_B\in\{S0,S1,SR\}}$ for $B$, and write $\ket{s_A,s_B}\coloneqq \ket{s_A}\otimes\ket{s_B}$.
+
+\paragraph{Classical density matrix and correlations.}
+Given a history $w$, the predictive state induces a joint distribution $p_w(s_A,s_B)=\Pr(S_A=s_A,S_B=s_B\mid w)$ on hidden states. The corresponding density matrix is diagonal:
+\begin{equation}
+  \rho_{AB}(w)
+  \;\coloneqq\;
+  \sum_{s_A,s_B} p_w(s_A,s_B)\,\ket{s_A,s_B}\bra{s_A,s_B}.
+\end{equation}
+In the lexicographic basis used above,
+\begin{equation}
+  \rho_{AB}(w)
+  \;=\;
+  \mathrm{diag}\!\Bigl(
+    p_{00},p_{01},p_{0R},p_{10},p_{11},p_{1R},p_{R0},p_{R1},p_{RR}
+  \Bigr),
+\end{equation}
+where, e.g., $p_{0R}\coloneqq p_w(S0,SR)$ and $\sum p_{ab}=1$.
+The marginals are $\rho_A=\Tr_B\rho_{AB}$ and $\rho_B=\Tr_A\rho_{AB}$.
+The factors are \emph{uncorrelated} iff $\rho_{AB}=\rho_A\otimes\rho_B$ (equivalently $p_w(s_A,s_B)=p_w(s_A)\,p_w(s_B)$). Otherwise, the correlation is purely classical: it appears in the diagonal entries (joint probabilities), not in off-diagonal coherences.
+
+\paragraph{Block structure from the partition.}
+With the two-subspace partition $\mathrm{span}\{S0\}\oplus\mathrm{span}\{S1,SR\}$ in each factor, $\rho_{AB}(w)$ is block diagonal with block sizes $1,2,2,4$ corresponding to the sectors in \eqref{eq:AB_decomp}. The total weight in each block is the coarse-grained joint distribution over partition labels.
+
+\paragraph{Almost-factored Z1R$\times$Z1R belief state.}
+An ``almost factored'' (but still classical/diagonal) belief state can have strong correlations between the partitions. For example, putting all mass on the ``matched'' sectors $V_{11}$ and $V_{22}$ gives
+\begin{equation}
+  \rho_{AB}^{\mathrm{AFP}}
+  \;=\;
+  p\,\ket{S0,S0}\bra{S0,S0}
+  \;+\;
+  \frac{1-p}{4}\sum_{s\ian\{S1,SR\}}\sum_{t\in\{S1,SR\}}\ket{s,t}\bra{s,t},
+\end{equation}
+which is block diagonal (so it respects the partition) but generally satisfies $\rho_{AB}^{\mathrm{AFP}}\neq \rho_A\otimes\rho_B$, hence encodes classical correlation between the factors.
+
+\section{Reproducing emergenet misalignment fine-tuning}
+
 
 % Optional: reference to the diagram
 %\paragraph{Diagram.}

@@ -12,13 +12,16 @@
 \newblock \url{https://www.anthropic.com/research/persona-vectors}, 2025.
 
 \bibitem[BTW{\etalchar{+}}25]{betley2025emergent}
-Jan Betley, Daniel Tan, Niels Warncke, Anna Sztyber-Betley, Xuchan Bao, Martin Soto, Nathan Labenz, and Owain Evans.
-\newblock Emergent misalignment: Narrow finetuning can produce broadly misaligned llms.
+Jan Betley, Daniel Tan, Niels Warncke, Anna Sztyber-Betley, Xuchan Bao, Martin
+  Soto, Nathan Labenz, and Owain Evans.
+\newblock Emergent misalignment: Narrow finetuning can produce broadly
+  misaligned llms.
 \newblock {\em arXiv preprint arXiv:2502.17424}, 2025.
 
 \bibitem[MBLH25]{maiya2025opencharactertrainingshaping}
 Sharan Maiya, Henning Bartsch, Nathan Lambert, and Evan Hubinger.
-\newblock Open character training: Shaping the persona of ai assistants through constitutional ai, 2025.
+\newblock Open character training: Shaping the persona of ai assistants through
+  constitutional ai, 2025.
 
 \bibitem[STRN25]{soligo2025convergent}
 Anna Soligo, Liv Turner, Senthooran Rajamanoharan, and Neel Nanda.
@@ -26,12 +29,14 @@ Anna Soligo, Liv Turner, Senthooran Rajamanoharan, and Neel Nanda.
 \newblock {\em arXiv preprint arXiv:2506.11618}, 2025.
 
 \bibitem[TST{\etalchar{+}}25]{turner2025model}
-Liv Turner, Anna Soligo, Jessica Taylor, Senthooran Rajamanoharan, and Neel Nanda.
+Liv Turner, Anna Soligo, Jessica Taylor, Senthooran Rajamanoharan, and Neel
+  Nanda.
 \newblock Model organisms for emergent misalignment.
 \newblock {\em arXiv preprint arXiv:2506.11613}, 2025.
 
 \bibitem[WDlTW{\etalchar{+}}25]{wang2025persona}
-Miles Wang, Tom Dupr{\'e}~la Tour, Olivia Watkins, Alex Makelov, Ryan~A Chi, Samuel Miserendino, Johannes Heidecke, Tejal Patwardhan, and Dan Mossing.
+Miles Wang, Tom Dupr{\'e}~la Tour, Olivia Watkins, Alex Makelov, Ryan~A Chi,
+  Samuel Miserendino, Johannes Heidecke, Tejal Patwardhan, and Dan Mossing.
 \newblock Persona features control emergent misalignment.
 \newblock {\em arXiv preprint arXiv:2506.19823}, 2025.
 
