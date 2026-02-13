@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.23)  10 FEB 2026 14:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.23)  11 FEB 2026 08:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -738,8 +738,7 @@ Package: fp-upn 1996/10/21
 Package: fp-eval 1995/04/03
 )) (/usr/local/texlive/2023/texmf-dist/tex/latex/subfiles/subfiles.sty
 Package: subfiles 2020/11/14 v2.2 Multi-file projects (package)
-)))
-No file emergent_misalignment.aux.
+))) (emergent_misalignment/emergent_misalignment.aux)
 \openout1 = `emergent_misalignment.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
@@ -763,7 +762,7 @@ LaTeX Font Info:    ... okay on input line 2.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-(/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count367
 \scratchdimen=\dimen319
@@ -819,10 +818,12 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring ON on input line 2.
+(emergent_misalignment/emergent_misalignment.out) (emergent_misalignment/emergent_misalignment.out)
 \@outlinefile=\write6
 \openout6 = `emergent_misalignment.out'.
 
 Package newfloat Info: Trying Plan B...
+
 No file pythontex-files-emergent_misalignment/emergent_misalignment.pytxmcr.
 Run PythonTeX to create it.
 Package newfloat Info: New float `listing' with options `fileext=lopytx' on input line 2.
@@ -831,53 +832,16 @@ Package newfloat Info: New float `listing' with options `fileext=lopytx' on inpu
 Package newfloat Info: float type `listing'=8 on input line 2.
 Package caption Info: New subtype `sublisting' on input line 2.
 \c@sublisting=\count375
-
-LaTeX Warning: Citation `betley2025emergent' on page 1 undefined on input line 7.
-
-
-LaTeX Warning: Citation `betley2025emergent' on page 1 undefined on input line 7.
-
-
-LaTeX Warning: Citation `soligo2025convergent' on page 1 undefined on input line 8.
-
-
-LaTeX Warning: Citation `turner2025model' on page 1 undefined on input line 8.
-
-
-LaTeX Warning: Citation `wang2025persona' on page 1 undefined on input line 8.
-
-LaTeX Font Info:    Trying to load font information for U+msa on input line 14.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 7.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 14.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 7.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+) [1
 
-LaTeX Warning: Citation `anthropic2024character' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `anthropic2025persona' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `maiya2025opencharactertrainingshaping' on page 1 undefined on input line 32.
-
-[1
-
-{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `betley2025emergent' on page 2 undefined on input line 58.
-
-[2] [3] [4]
-
-LaTeX Warning: Reference `eq:AB_decomp' on page 5 undefined on input line 189.
-
-[5]
-
-LaTeX Warning: Reference `eq:z1r_partition_preserving_single' on page 6 undefined on input line 247.
-
-[6]
+{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6]
 Underfull \hbox (badness 10000) in paragraph at lines 275--277
 
  []
@@ -898,15 +862,6 @@ Overfull \hbox (171.31876pt too wide) detected at line 290
  []
 
 
-LaTeX Warning: Reference `eq:joint_ABCD_def' on page 7 undefined on input line 291.
-
-
-LaTeX Warning: Reference `eq:block_diagonal_form' on page 7 undefined on input line 291.
-
-
-LaTeX Warning: Reference `eq:AB_decomp' on page 7 undefined on input line 317.
-
-
 Overfull \hbox (21.18526pt too wide) in paragraph at lines 317--318
  []\OT1/cmr/bx/n/12 Block struc-ture from the par-ti-tion.[] \OT1/cmr/m/n/12 With the two-subspace par-ti-tion $[]\OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 S\OT1/cmr/m/n/12 0\OMS/cmsy/m/n/12 g ^^H []f\OML/cmm/m/it/12 S\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 ; SR\OMS/cmsy/m/n/12 g$
  []
@@ -915,15 +870,6 @@ Overfull \hbox (21.18526pt too wide) in paragraph at lines 317--318
 Overfull \hbox (2.96916pt too wide) in paragraph at lines 320--321
  []\OT1/cmr/bx/n/12 Almost-factored Z1R$\OMS/cmsy/m/n/12 ^^B$\OT1/cmr/bx/n/12 Z1R be-lief state.[] \OT1/cmr/m/n/12 An ``al-most fac-tored'' (but still clas-si-cal/diagonal)
  []
-
-/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/emergent_misalignment/emergent_misalignment.tex:326: Undefined control sequence.
-l.326   \frac{1-p}{4}\sum_{s\ian
-                                \{S1,SR\}}\sum_{t\in\{S1,SR\}}\ket{s,t}\bra{...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
 (emergent_misalignment/emergent_misalignment.bbl
 Underfull \hbox (badness 1178) in paragraph at lines 15--20
@@ -936,34 +882,22 @@ Underfull \hbox (badness 1377) in paragraph at lines 27--30
  []
 
 [8]) [9] (emergent_misalignment/emergent_misalignment.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `emergent_misalignment.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `emergent_misalignment.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  EBA838C24FF541786F9F9AF738D3784A;1977.
+Package rerunfilecheck Info: File `emergent_misalignment.out' has not changed.
+(rerunfilecheck)             Checksum: EBA838C24FF541786F9F9AF738D3784A;1977.
  ) 
 Here is how much of TeX's memory you used:
- 30463 strings out of 476025
- 595700 string characters out of 5790017
+ 30478 strings out of 476025
+ 596094 string characters out of 5790017
  1865388 words of memory out of 5000000
- 50289 multiletter control sequences out of 15000+600000
+ 50298 multiletter control sequences out of 15000+600000
  519923 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,8n,106p,819b,578s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on emergent_misalignment/emergent_misalignment.pdf (9 pages, 186121 bytes).
+Output written on emergent_misalignment/emergent_misalignment.pdf (9 pages, 187803 bytes).
 PDF statistics:
- 208 PDF objects out of 1000 (max. 8388607)
- 167 compressed objects within 2 object streams
+ 248 PDF objects out of 1000 (max. 8388607)
+ 206 compressed objects within 3 object streams
  77 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 77 words of extra memory for PDF output out of 10000 (max. 10000000)
 

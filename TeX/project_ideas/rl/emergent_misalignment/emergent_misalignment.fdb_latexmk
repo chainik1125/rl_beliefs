@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex emergent_misalignment/emergent_misalignment"] 0 "emergent_misalignment/emergent_misalignment.aux" "emergent_misalignment/emergent_misalignment.bbl" "emergent_misalignment/emergent_misalignment" 1770763565 -1
+["bibtex emergent_misalignment/emergent_misalignment"] 0 "emergent_misalignment/emergent_misalignment.aux" "emergent_misalignment/emergent_misalignment.bbl" "emergent_misalignment/emergent_misalignment" 1770827980 -1
+  "../refs.bib" 0 -1 0 ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "emergent_misalignment/emergent_misalignment.aux" 1770763564 4954 5b73952a5ad2c259b9d2c1ef29493751 "pdflatex"
-  "emergent_misalignment/refs.bib" 1768059016 2311 020cfa3b6823fd30ac81d83566f01006 ""
+  "emergent_misalignment/emergent_misalignment.aux" 1770827979 4957 0df8dad0eda7f1ddf7efd7e6cdb081af "pdflatex"
   (generated)
   "emergent_misalignment/emergent_misalignment.bbl"
   "emergent_misalignment/emergent_misalignment.blg"
   (rewritten before read)
-["pdflatex"] 1770763563 "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/emergent_misalignment/emergent_misalignment.tex" "emergent_misalignment/emergent_misalignment.pdf" "emergent_misalignment" 1770763565 2
-  "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/emergent_misalignment/emergent_misalignment.tex" 1770763563 22552 940f1e13deae5786bfadedd8c5bd655a ""
+["pdflatex"] 1770827979 "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/emergent_misalignment/emergent_misalignment.tex" "emergent_misalignment/emergent_misalignment.pdf" "emergent_misalignment" 1770827980 0
+  "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/emergent_misalignment/emergent_misalignment.tex" 1770827978 22554 7e068d686fd6f06ba36aa9fda7015172 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -229,12 +229,11 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1684847018 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1684846971 7883455 52624b54ccb705e781d68afdd6cc69fa ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "emergent_misalignment.aux" 0 -1 0 ""
   "emergent_misalignment/../ideas.tex" 1768059330 7894 388d51b25e3ab60538b4bb1f44e5b386 ""
-  "emergent_misalignment/emergent_misalignment.aux" 1770763564 4954 5b73952a5ad2c259b9d2c1ef29493751 "pdflatex"
-  "emergent_misalignment/emergent_misalignment.bbl" 1769900005 1823 4d8c7e560ba6686e9807e39cab170466 "bibtex emergent_misalignment/emergent_misalignment"
-  "emergent_misalignment/emergent_misalignment.out" 1770763564 1977 eba838c24ff541786f9f9af738d3784a "pdflatex"
-  "emergent_misalignment/emergent_misalignment.tex" 1770763563 22552 940f1e13deae5786bfadedd8c5bd655a ""
+  "emergent_misalignment/emergent_misalignment.aux" 1770827979 4957 0df8dad0eda7f1ddf7efd7e6cdb081af "pdflatex"
+  "emergent_misalignment/emergent_misalignment.bbl" 1770827516 1823 4d8c7e560ba6686e9807e39cab170466 "bibtex emergent_misalignment/emergent_misalignment"
+  "emergent_misalignment/emergent_misalignment.out" 1770827979 1977 eba838c24ff541786f9f9af738d3784a "pdflatex"
+  "emergent_misalignment/emergent_misalignment.tex" 1770827978 22554 7e068d686fd6f06ba36aa9fda7015172 ""
   "emergent_misalignment/pythontex-files-emergent_misalignment/emergent_misalignment.pytxmcr" 0 -1 0 ""
   "pythontex-files-emergent_misalignment/emergent_misalignment.pytxmcr" 0 -1 0 ""
   (generated)

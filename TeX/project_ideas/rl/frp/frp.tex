@@ -1,0 +1,656 @@
+\documentclass[11pt]{article}
+
+% --- Typst-default-like layout ---
+\usepackage[letterpaper, margin=1.5cm]{geometry}
+\usepackage{libertine}            % Linux Libertine text font
+\usepackage[T1]{fontenc}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.65em}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\let\Bbbk\relax \let\openbox\relax
+\usepackage[libertine]{newtxmath} % matching math font
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=blue, citecolor=blue]{hyperref}
+\usepackage{cleveref}
+\usepackage{braket}
+\usepackage{url}
+\usepackage{graphicx, caption, wrapfig, booktabs}
+
+\DeclareMathOperator{\Tr}{Tr}
+\newtheorem{Assumption}{Assumption}
+
+% Robustifying model personas against belief states?
+% Controlling model personas through belief states}
+% Persona engineering:?
+% 
+\title{Persona world models: a framework for robust alignment}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+% HIgh level TODOs:
+% 1. I think being able to detect which personas are present is itself very important, and I think that is a goal for what you are doing.
+
+% NOTES:
+% IMportant point! The openAI paper finds that base models (at least 4o) largely do not exhibit EM, sect. 2.4. This is important for documenting the robustness-alignment trade-off.
+% Also note that negatively steering SAE directions was not that effective in the paper.
+% You should definetly investigate what role SAEs play in the SFP
+\section{Project TL;DR}
+We develop a mathematical model of personas and use it as a testbed to demonstrate improved methods for steering and designing personas that are robust to unexpected generalization. 
+% 'Model' in model personas is incredibly annoying!
+% Think a little more deeply about your goal. It would be good to come up with an actual benchmark for what you are trying to do. 
+% For example, are you:
+% 1. Trying to come up with steering vectors that are better at coherence/inducing-behvaiour? If so what is the benchmark? Persona vectors?
+% 2. 
+% Yeah, I guess it's fair to say that you
+\section{Abstract}
+% A nice way to think about this is in the abstract you say what YOU will do, and in the Background you say what other people have done. and what the broader theme is.
+We propose a mathematical framework for understanding how model personas influence unexpected generalization, taking emergent misalignment as our primary case study. Our framework is a generalization of existing General Hidden Markov Models (GHMMs) that we term "Semi-Factored Processes" (SFPs). GHMMs are simple models that provide an explicit way to keep track of an LLM's internal world model.   %Too technical, ask CC to come up with a way of saying toy model that does not say toy model.
+Our path to impact proceeds in three stages. First, we show that we can replicate the key empirical facts of emergent misalignment in the GHMM setting. 
+This provides the community with a fully understandable platform in which we can track how model personas are represented within the LLM world model.
+Second, we use this understanding to develop more precise steering tools that can steer between model personas at higher coherence than conventional methods. %necessary because of capability entanglement? I wonder if we can make this more precise and prove in the GHMM setting what the minimal steering is.
+% TODO: What does more effectively target mean? What is the precise metric that you are 
+% I think what you are implicitly arguing here is that knowing the world model allows you to develop more targeted interventions and I think that is precisely the point of the steering work that Xavier is doing to demonstrate.
+Once we understand these tools in the GHMM setting, we will measure their efficacy and coherence in mid-scale language models - benchmarking against conventional persona steering vectors \cite{anthropic2025persona}.
+Finally, we investigate the possibility of 'Persona engineering' -training procedures that change the role of the persona within the LLM world model -  %short description- - 
+as a mitigation strategy for unexpected generalization, first in our GHMM setting and, if successful, in mid-scale models.
+
+% TODO: Maybe define coherence and fidelity as the steering measures.
+% 
+
+\section{Background}
+% You should cut this section and instead have a brief mathematical background.
+% A good way to think about this is that you're basically answering neglectedness.
+% What is the path to impact? (e.g., for labs/third-parties to implement, for technical projects, or for this message reaching policy-makers, for governance projects)?
+% Are there potential risks introduced by this work (e.g., dual use)?
+% Ah, notice this step in the logic - you are claiming 
+% 1. 
+% Alignment is mediatd by personas is a cool framing, maybe I should go back to that wording?
+% TODO: 
+
+
+Model personas \cite{anthropic2025persona} have emerged as a powerful level of abstraction for understanding Large Language Model (LLM) behaviour.
+A wide variety of personas have been discovered in both pre- and post-trained models \cite{lu2026assistantaxissituatingstabilizing}, they play a key role in unexpected generalization \cite{owain}, most notably Emergent Misalignment (EM) \cite{wang2025persona}, and are increasingly being explored as key ingredient in alignment post-training \cite{maiya2025opencharactertrainingshaping}. %Sentence on why personas are important.
+Persona-based interventions have been empirically demonstrated to make models safer: they have increased jailbreak resistance, reduced the rate of learning undesirable behaviour \cite{inoculation_prompting}, and mitigated model psychosis \cite{lu2026assistantaxissituatingstabilizing}. %I think you can do better here and find cases where models become more transparent, and thus harder to deceptively align than in previous cases. Does sharan's paper talk about it?
+% Urgh 'safety relevant outcomes is so vague'
+
+
+There is, however, no clear theoretical understanding of how personas form and how they can be shaped. %TODO: check literature for what theoretical models are currently out there, if any.
+Our project aims to to improve persona-based interventions and, ultimately, improve our ability to engineer personas by providing a theoretical framework for model personas in a simple setting.
+% If possible, it would be nice to have a sentence here that explains why having the world models perspective (or, if you like having access to the world model) is good.
+Using the recently developed machinery of factored \cite{factored} and non-ergodic \cite{non-ergodic} belief states we describe model personas as particularly important components of a world model.
+We focus on Emergent Misalignment (EM) as a case study for the role of model personas in mediating safety relevant behaviour.
+% safety-relevant behaviour is a bit vague, maybe you could simplify clarify? 
+We show that we can define a new type of General Hidden Markov Model (GHMM), ``Semi-Factored Processes'' (SFPs) which captures the stylized facts of empirical facts of EM in a fully understandable setting. We then use this as a testbed for developing more precise persona-based interventions. In particular, we focus on two types of intervention. 
+
+% Note, most approaches simply identify the bad persona and then show that you can steer away from it. We want to see if we can eliminate it!
+% Note, there is a different framing here where you talk about what the interventions that people currently use are and why they are important.
+% In the ideal case, you could add some more information about 
+% This section is too long
+
+First, we adapt the recently developed technique of 'belief-state' steering vectors \cite{xavier_upcoming} to steer between model personas. Conventional difference-in-means steering is defined at the level of the model outputs, which makes it difficult to cleanly target the persona rather than the associated task the persona is being deployed on.
+belief-state steering, on the other hand, is defined with respect to belief states (i.e. the components of an LLMs internal world model). We find that using this technique we can differentially steer different 'factors' in our GHMM which play the role of model personas. 
+We aim to first refine this technique in a broader range of GHMM settings, and then define an analogous procedure in medium scale (1-10B parameters) language models. 
+We note that although there are reasonable approaches, it is not yet clear how to define belief-state steering without prior knowledge of the underlying belief states (as is the case in mid-scale models) and so demonstrating context aware steering of personas in mid-scale models should be regarded as a stretch goal for the project. 
+
+
+%Criticism: is this the right benchmark? Are current persona vectors based on difference-in-means steering or something else?
+% Criticism: why would you want to steer model personas?
+% Criticism: Neels stuff already shows you can do very low rank updates so why do you need it to be more coherent?
+% Criticism: You cannot apply context aware steering to actual models because you have no idea what the world model is. In fact, model personas are interesting precisely because they are a way of understanding the world model 
+% Criticism: if you take the equivalence class perspective, and you say that you can identify the personas from just the text, then I think you end up doing the same thing that you would have done in difference-in-means steering.
+
+
+% You may want to introduce why EM makes you think that there is a robustness problem. Basic point is that j
+% This section seems relatively weaker.
+% Maybe this also is a little too detailed?
+Second, we investigate how changing the properties of the model persona changes its susceptibility to emergent misalignment.
+Our framework gives us control over the strength of correlation between a model persona and the specific tasks in which that persona is present. 
+We hypothesize that there is a trade-off between alignment accuracy and robustness: personas that are aligned across a wide range of tasks will be more vulnerable to emergent-misalignment finetuning into generally misaligned models. 
+Once we have understood this effect in the GHMM setting, we will measure it in mid-scale models.
+% Sentence of what we will have once e do this.
+
+% 
+
+%sentence of why we need our research
+
+
+% The time is ripe to understand them better!
+% Sentence about what is currently known.
+% Sentence about why world models are important necessary?
+
+% most notably in emergent misalignment \cite{wang2025persona,betley2025emergent}. %An alternative dialectic for this is to have emergent misalignment as a case in which model personas are responsible for misalignment. I.e. EM shows that personas can be brittle
+% Immediate problem here is that EM happens in pre-trained models too. So really you can just make it about model personas.
+% I thin 
+% Cite owain
+% The missing step here is to say why a world model is necesssary.
+
+% I think it is important to say that you will try to develop tools for attribution: quantifying how much of a role each persona played.
+% \begin{enumerate}
+%   \item Show that our generalized GHMM replicates the core empirical facts of emergent misalignment.
+%   \item Demonstrate steering tools that allow more surgical intervions on model personas first in the GHMM setting, and then validate them on 1 billion parameter scale LLMs. %I guess you can say something like activation capping is an imprecise technique?
+%   \item Design personas that are more robust to unexpected generalization.
+% \end{enumerate}
+% I guess it would be clearer if you described in more detail what this gives you that current personas work does not.
+% BTW - note that a particularly interesting 
+
+% Something like persona vectors are still very 
+
+
+
+ 
+
+
+% What is your approach?
+% What have others done on this topic?
+% How will solving it advance AI safety?
+% What is the path to impact? (e.g., for labs/third-parties to implement, for technical projects, or for this message reaching policy-makers, for governance projects)?
+
+% Rlhf is the foundation of modern alignment. Although it is effective, it is not robust - even the most recent version of CC was jailbroken in under a day
+
+% Papers to cite:
+%1. Owain Persona vectors: https://arxiv.org/abs/2507.21509
+%2. betley EM
+% 3. Open AI paper
+% 4. Assistant axis paper
+% 5.
+
+% BTW: can you teach models to self jailbreak? Has this been done? What do they do subsequently?
+
+
+% Foundational question framing; do personas supervene on capabilities, or are tjey distinct?  Non-ergodic only vs. 
+
+
+% \section{Project plan}
+% Our project plan consists of three stages:
+% \begin{enumerate}
+%   \item Reproducing stylized empirical facts of Emergent Misalignment.
+%   \item Investigating the role of interventions in GHMM.
+%   \item Scaling interventions to mid-scale models.
+% \end{enumerate}
+
+
+% TODO: diagram of stages
+\section{Work conducted so far}
+% Change to a description of the thre sprints.
+We first needed to define our generalized GHMM and show that it reproduces the following empirical facts of emergent misalignment:
+\begin{enumerate}
+  \item Models can be steered both into and out of emergently misaligned behaviour \cite{soligo2025convergent,turner2025model}.
+  \item Models exhibit emergent misalignment from finetuning on a narrow set of misaligned behaviours \cite{betley2025emergent}.
+  \item Personas are associated with specific SAE features \cite{wang2025persona}.
+\end{enumerate}
+
+\subsection{Sprint 1 (Week 1-2): Literature review, initial product plan, and current factored results}
+\textbf{Output}: Submitted project plan document to mentors and demonstrated belief-state steering.
+% Graph - differentially steering on factored belief states.
+% Say, to derisk the project, I first showed that factored belief states allow for differentiable steering.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{images/differential_steering.png}
+\caption{Differential steering on factored belief states.}
+\label{fig:differential_steering}
+\end{figure}
+I reviewed the literature on how the belief state formalism can be applied to key safety topics. 
+% I initially considered project plans for using belief states for capability audits and for model personas. Can keep this forincluding later.
+To de-risk the model persona idea, we did initial experiments on `factored processes' (FP) \cite{shai2026transformerslearnfactoredrepresentations}. 
+Factored processes are a simpler form of GHMM in which the training data and labels are generated by two independent HMM running in parrallel and the model only sees the output of the combined process.
+Although this is insufficient to capture emergent misalignment, this provides a way to test whether we can steer on each process independently.
+We used activation steering to show that it is possible to differentially steer each factor, for the simplest type of factored HMM - two copies of a Zero-1-Random process. We see that this allow us to intervene only on factor 1 (the factor which was steered) and leave factor 2 largely unchanged. 
+This initial sign-of-life experiment demonstrated that belief-state steering may allow us to more precisely target different model personas whilst keeping other behaviours unchanged.
+
+
+\subsection{Sprint 2 (Week 3-4): Defining generalized models and demonstrating generalized steering}
+\textbf{Output}: Write-up of maths for Semi-Factored Processes  and initial steering results.\\
+% Could say some of this was generalizing to Mess3 other types of process. Debugging the steering procedure.
+% Really this is steering the outputs differentially, you design a novel procedure.
+% Not sure if you can present the mathematical framework, but ideally you say what it does
+% Non-ergodic coins work?
+% If necessary I think you can pause and say that you di
+We then provided a formal mathematical definition of Semi-Factored Processes \cref{sec:app_SFPs}. 
+We showed that they generalized previous work on non-ergodic processes \cite{riechers2025nexttokenpretrainingimpliesincontext} and factored processes \cite{shai2026transformerslearnfactoredrepresentations} and provided a dictionary between Emergent Misalignment and SFPs. 
+We then performed initial steering experiments to show that we can effectively steer between the different semi-factored spaces in the simplest case of a semi-factored Z1RxZ1R process \cref{sec:app_SFPs} %TODO: more specific appendix reference for where I define that process.
+% TODO: Include plots in the appendix and just summarize - report the coherence and fidelity.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{images/sfp_steering.png}
+\caption{Steering on semi-factored processes.}
+\label{fig:sfp_steering}
+\end{figure}
+
+
+\subsection{Sprint 3 (Week 5-6): Demonstrating the analogue of emergent misalignment fine-tuning}
+
+\textbf{Output:} Demonstrated that narrow fine-tuning describes \\
+\section{Planned work}
+\textbf{Main Program}
+\subsubsection{Sprint 4 (Week 6-8): Applying steering to tune between aligned and misaligned personas}
+% Criticism: How is this different from regular steering vectors? How would you do it for regular steering vectors? 
+% I think an advantage of this is that we do not need to see the fine-tune, we just need to know the good and bad persona.
+% Add: document SAE features associated with aligned and misaligned persona - basically replicate the OpenAI part of that work.
+We then measure the extent to which belief-state steering vectors can reverse the effect of misalignment fine-tuning
+
+% Metrology phase: How do we build diagnostic of when a model is using an AFP? Apply this to training to see how it goes.
+% How do CFPs emerge dynamically? How does this happen for pre-training vs. post-training?
+% Document a trade-off between difficulty of inducing EM and 
+% off-ramps for misalignment
+% INclude a project risks section and how they are mitigated, maybe it would be better to do this in each subsection
+% Change of direction is also a markign criteria
+
+\subsubsection{Sprint 5 (Weeks 8-10): Initial experiments into persona engineering}
+\label{subsec:person_eng_sprint}
+% Our primary lever for controlling the persona in this setting is the correlation structure between the action and the 
+We measure how the propensity for emergent misalignment %TODO: what is the word they used for it in the betley paper?
+changes as we change the structure of the factored space. In particular we:
+\begin{enumerate}
+  \item Introduce mixing which introduces some misaligned behaviours into the aligned subspace.
+  \item Increase the relative dimensions of the alignment and action spaces. %I think you need to define above what you mean by persona and action spaces.
+  \item Increase the number of model persona subspaces. %Urgh, this is so vague!
+  \item Introduce noise into the factoring process to break the exact SFP structure \cite{shai2026transformerslearnfactoredrepresentations}. %what they call Almost Factored Processes I think
+\end{enumerate} 
+For each intervention, we plot the robustness-fidelity trade-off and look for Pareto improvements.
+
+\textbf{\underline{Output:} Lesswrong blog post detailing our model, steering procedure and persona interventions}. 
+% Another really interesting question you're not talking about at all here is the interesting question of how you detect these.
+\subsubsection{Sprint 6 (Weeks 11-12): Initial experiments into mid-scale language models}
+We now attempt to de-risk the more ambitious goal of transferring findings from SFPs into 1-10B scale language models.
+We first use the setup of \cite{anthropic2025persona} to define analogues of the interventions described in \cref{subsec:person_eng_sprint}. %TODO: if time, you should write an appendix section on how this might work.
+We use the model organisms of emergent misalignment in \cite{turner2025model}, and investigate whether the mixing, persona number, and  persona interventions described in \cref{subsec:person_eng_sprint} affect the alignment-robustness tradeoff relative to the baseline of the original "misaligned" persona in LLama and Qwen models (i.e. those found in \cite{arditi_opensource_ai}).
+% Insert a
+% \subsubsection{Sprint 6: (Week 10-12): Investigating how SFP emerge in post-training}
+
+
+% Ideally you want to use another repo 
+% I
+\textbf{Output:} End of MATS presentation.
+\textbf{Extension Phase}
+% \sub
+In the extension phase, our primary goal will be to demonstrate that our findings for SFTs in small Transformers generalize to mid-scale language models.
+\subsubsection{Sprints 7,8: (Week 12-16): Mechanistic effect of persona interventions on Emergent Misalignment}
+We now propose to do a systematic study of how the known mechanistic picture of EM changes as we apply persona interventions.
+In particular, we propose to map out the effectiveness of LoRA finetuning in inducing coherent misaligned responses (as in \cite{turner2025model}) after each intervention. 
+We will also adapt the model-diffing setup in \cite{turner2025model} to investigate how persona interventions affect the strength of `toxic persona' features.
+
+% Something abotu demonstrating the new steering procedure is more effective here?
+% Maybe we 
+% Maybe the Qwen family of models is better at this now.
+% Maybe Olmo since we need access to the model internals?
+\textbf{Output: Internal simplex write-up of mechanistic effects of persona interventions.}
+\subsubsection{Sprints 8,9: (Week 16-20): Scaling experiments on broader range of models}
+Emergent misalignment typically improves with model capability. In this stage we investigate how our alignment-robustness tradeoff, mechanistic picture, and steering interventions change as we increase model scale from 0.5B-32B parameters across Gemma, LLama, and Qwen model families.
+Demonstrating that mitigating persona interventions persist at scale will make a strong case that persona interventions are relevant for frontier models.
+
+\subsubsection{Sprints 9,10: (Week 20-24): and preparing submission for ICML July Workshop}
+% % What we really want to now here is how SFP forms, whereas previously we started from data that is already generated by an SFP.
+% % I'll write this for now, but I thin it doesn't really make any sense because belief state steering
+% Investigating how personas develop in post-training 
+% In the previous steps, we assumed that the pre-training data was generated according to an SFP. 
+% We now investigate whether this structure can be induced in the model via fine-tuning.
+% In this setting, we initially train on the fully factored process.
+% We then fine-tune `aligned responses' on the `aligned persona' subspace and then train a linear probe from the resiudal stream to the belief state implied by the associated SFP, as in \cite{riechers2025nexttokenpretrainingimpliesincontext}. The accuracy of this probe indicates whether the SFP emerges spontaneously in post-training. %This is just the coin-flip process?
+To gather feedback, we intend to first submit our work to the ICML July workshop.
+
+\textbf{Output: Submit to ICLR July Workshop.}
+\subsubsection{Sprints 11,12 (Week 24-26): Prepare ICLR submission}
+Incorporate feedback from July Workshop and write a submission for ICLR.
+
+\section{Project risks}
+\subsection{Research risks}
+We have two primary project risks. The most important is that SFPs do not turn out to be a useful framework for emergent misalignment.
+To mitigate this risk, we performed de-risking experiments to show the viability of belief-state steering in factored processes and SFPs. These confirmed that SFPs show the necessary property of differentiable steering between factors. 
+This differentiable steering is itself an interesting property, and can be investigate in its own right if we are not able to establish the connection to emergent misalignment.
+
+The second is that the findings we demonstrate for models trained on SFPs will not hold for frontier language models. Once we have demonstrated the core components of SFPs in Sprint 5, we therefore prioritize de-risking experiments that explore how key findings transfer over to medium-scale language models.
+
+\subsection{Dual-use risks}
+We do not anticipate significant dual-use risks, although we do propose
+
+
+\clearpage
+\bibliographystyle{alpha}
+\bibliography{../refs}
+
+\appendix
+
+\section{Simple activation steering for factored belief states.}
+\subsection{Factored Activation Steering in Transformer Models of Compositional HMMs}
+\label{sec:factored-steering}
+
+We investigate whether small transformers trained on factored hidden Markov models (HMMs) develop internal representations that respect the compositional structure of the data-generating process, and whether these representations can be selectively intervened upon. Our approach extends activation steering---a technique that adds a computed direction to a model's residual stream to shift its behavior---to the \emph{factored} setting, where the latent state decomposes as a Kronecker product of independent factors.
+
+\paragraph{Setup.}
+We train 2-layer, 64-dimensional, 2-head transformer language models (via TransformerLens) on sequences emitted by Kronecker-product HMMs. The joint HMM has state space $S_1 \times S_2$ and vocabulary $V_1 \times V_2$, encoded as a single token $v = v_1 V_2 + v_2$. We study two regimes: (i)~a \emph{fully factored} process (Z1R~$\times$~Z1R, with $|S_i|=3$, $|V_i|=2$, giving 9 joint states and 4 joint tokens), and (ii)~an \emph{semi} partition-preserving Z1R process where the factors share partition structure but are not fully independent.
+
+\paragraph{Method.}
+We collect residual-stream activations at the final layer and final sequence position for 500 sequences, along with the Bayes-optimal belief state $\pi \in \Delta^{|S_1||S_2| - 1}$. We marginalize joint beliefs to obtain per-factor beliefs $\pi_A, \pi_B$ and group activations by belief equivalence class (full belief vector, rounded to $10^{-6}$). Centroids are computed per equivalence class for each factor independently---crucially, this averages over all states of the \emph{other} factor. The steering vector from source belief $s$ to target belief $t$ is simply $\mathbf{c}_t - \mathbf{c}_s$. During inference, this vector is added to the residual stream via a forward hook at the specified layer.
+
+\paragraph{Evaluation metrics.}
+We report three KL divergences:
+\begin{enumerate}
+    \item $D_{\mathrm{KL}}(\text{target-model} \,\|\, \text{steered})$: how well the steered output matches what the model produces on sequences genuinely in the target belief state;
+    \item $D_{\mathrm{KL}}(\text{steered-factor} \,\|\, \text{original-factor})$: the magnitude of steering effect on the intended factor (higher means more effective steering);
+    \item $D_{\mathrm{KL}}(\text{unsteered-factor} \,\|\, \text{original-factor})$: unintended spillover to the other factor (lower means cleaner factored steering).
+\end{enumerate}
+
+\paragraph{Key results: fully factored case.}
+In the fully factored Z1R~$\times$~Z1R setting, steering cleanly separates the two factors. Table~\ref{tab:factored-scale-sweep} reports results averaged over all 6 source--target pairs at varying steering scales. At scale 1.0, the steered factor shifts substantially ($D_{\mathrm{KL}} = 0.146$) while spillover to the unsteered factor remains negligible ($D_{\mathrm{KL}} = 0.0001$), a ratio exceeding $1000{:}1$. Linear regression from activations to per-factor beliefs achieves high $R^2$, confirming that the factors occupy approximately orthogonal subspaces in the residual stream.
+
+\begin{table}[h]
+\centering
+\caption{Scale sweep for factored steering on the Z1R~$\times$~Z1R process, averaged over all source--target belief-state pairs. \emph{Steered factor} measures intended effect; \emph{unsteered factor} measures spillover.}
+\label{tab:factored-scale-sweep}
+\begin{tabular}{r c c c}
+\toprule
+Scale & $D_{\mathrm{KL}}(\text{steered} \,\|\, \text{target})$ & $D_{\mathrm{KL}}(\text{steered factor})$ & $D_{\mathrm{KL}}(\text{unsteered factor})$ \\
+\midrule
+0.0 & 0.014 & 0.000 & 0.000 \\
+0.5 & 0.095 & 0.046 & 0.000 \\
+1.0 & 0.222 & 0.146 & 0.000 \\
+1.5 & 0.567 & 0.439 & 0.001 \\
+2.0 & 1.036 & 0.850 & 0.002 \\
+3.0 & 1.703 & 1.443 & 0.004 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Key results: almost-factored case.}
+In the almost-factored regime, the picture differs sharply. Steering Factor~1 (the partition-preserving direction) still works cleanly: spillover remains below 0.014 even at scale~3.0. However, steering Factor~0 produces substantial spillover ($D_{\mathrm{KL}} = 0.34$ at scale~1.0), indicating entangled representations along that axis. A partition-violation analysis (Table~\ref{tab:partition-violation}) further reveals that the model respects partition constraints at moderate steering scales---forbidden-token mass stays below $0.001$ at scale~1.0---but violates them under strong steering (forbidden mass reaches $\sim\!0.39$ at scale~5.0), suggesting the linear steering approximation breaks down before the model's nonlinear partition enforcement does.
+
+\begin{table}[h]
+\centering
+\caption{Partition-violation analysis for the almost-factored process. \emph{Forbidden} denotes probability mass assigned to tokens that should have zero probability under the partition structure. Results shown for partition blocks P10 and P01.}
+\label{tab:partition-violation}
+\begin{tabular}{r c c c c}
+\toprule
+Scale & \multicolumn{2}{c}{Forbidden mass} & \multicolumn{2}{c}{Target-class mass} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+ & P10 & P01 & P10 & P01 \\
+\midrule
+0.00 & 0.001 & 0.001 & 0.518 & 0.516 \\
+0.50 & 0.000 & 0.000 & 0.983 & 0.986 \\
+1.00 & 0.000 & 0.001 & 0.999 & 0.999 \\
+2.00 & 0.019 & 0.080 & 0.981 & 0.920 \\
+3.00 & 0.130 & 0.373 & 0.870 & 0.627 \\
+5.00 & 0.395 & 0.691 & 0.605 & 0.309 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Conclusion.}
+These results demonstrate that transformers can learn cleanly factored representations of compositional structure, and that factored activation steering provides both a practical intervention tool and a diagnostic for representational independence. The sharp contrast between the fully factored and almost-factored regimes---where spillover differs by three orders of magnitude---suggests that steering-based probes can detect subtle deviations from true independence in learned representations.
+
+\section{Semi-Factored Processes}
+\label{sec:app_SFPs}
+% \subsection{Dictionary between Emergent Misalignment and Almost factored belief}
+% Just want to make the point here that there are no quantum correlations - so the density matrix is diagonal. Where do subspace correlations live in the density matrix formalism?
+
+\subsection{Partition-preserving tensor-product GHMMs (block invariance)}
+\label{sec:partition_preserving_tensor_ghmm}
+
+\paragraph{GHMM notation.}
+We follow the GHMM notation of \texttt{arXiv:2507.07432}. Let $\mathcal{X}$ be a finite alphabet, let $\bigl(T(x)\bigr)_{x\in\mathcal{X}}$ be the transfer matrices of a (finite-state) generalized hidden Markov model (GHMM), and let $\langle\!\langle\eta(\emptyset)\rvert$ be the initial latent row vector. The net transition operator is
+\begin{equation}
+  T \;\coloneqq\; \sum_{x\in\mathcal{X}} T(x),
+\end{equation}
+which has eigenvalue $1$ with associated right eigenvector $\lvert 1\rangle\rangle$ satisfying $T\lvert 1\rangle\rangle=\lvert 1\rangle\rangle$. We normalize $\langle\!\langle\eta(\emptyset)\rvert$ so that $\langle\!\langle\eta(\emptyset)\rvert 1\rangle\rangle=1$.
+
+For a word $w=x_{1:\ell}$, define $T(w)\coloneqq T(x_1)\cdots T(x_\ell)$. Then
+\begin{equation}
+  \Pr(X_{1:\ell}=w)
+  \;=\;
+  \langle\!\langle\eta(\emptyset)\rvert\, T(w)\, \lvert 1\rangle\rangle.
+\end{equation}
+The corresponding (normalized) predictive vector is
+\begin{equation}
+  \langle\!\langle\eta(w)\rvert
+  \;\coloneqq\;
+  \frac{\langle\!\langle\eta(\emptyset)\rvert\, T(w)}{\langle\!\langle\eta(\emptyset)\rvert\, T(w)\,\lvert 1\rangle\rangle}.
+\end{equation}
+
+In the HMM special case, the $T(x)$ are substochastic matrices with entries $T^{(x)}_{s,s'}=\Pr(s',x\mid s)$, and $T$ is row-stochastic so $\lvert 1\rangle\rangle=\mathbf{1}$.
+
+% \textbf{Emergent Misalignment connection}:\\
+% This is the standard setup - we imagine the GHMM as a model of the generative process that produces text in the pre-training setup.
+
+\paragraph{Intuition for `Semi-Factored Processes' (SFPs)}
+% There's a nicer way to say this that says something like:
+% 
+For simplicitly, let us consider the total state space as consisting of the tensor product of two spaces, $A$ and $B$ such that a general state vector lives in the tensor product state:
+
+\begin{equation}
+\eta=\eta_{A}\otimes\eta_B  
+\end{equation}
+As an intuition pump, we imagine that $A$ and $B$ are both ``world models" of different capabilities (bad word). Previously we studied `Purely Factored Processes' (PFPs). Intuitively, these processes represent sequences which contain distinct capabilities - for example, space $A$ may represent the space of mathematical symbols, and space $B$ the set of proper names. The key property of these processes is that knowing any piece of information about $A$ does not tell you any information about $B$.
+% Actually, I think Claude stumbled upon Daniel Tan's setup with the thing about schemas and data templates:
+
+% 1. Structured Data / Templates
+
+
+% Name: [X], Age: [Y], Occupation: [Z]
+% Knowing X = "Marie" tells you nothing about Y or Z. The schema enforces factorization.
+
+% prompted to explain a mathematical concept in French
+% actually this is an interesting case - wouldn't these two be entangled? And in general -
+
+
+For Emergent Misalignment, however, this assumption should not hold. As another intuition pump, we take space $A$ to represent a model persona - for simplicity consisting of an ``aligned" space $A_1$ and a misaligned space $A_2$ such that $A=A_1\oplus A_2$. We imagine space $B$ to be the world model associated with a given capability - producing code say. We imagine we can partiton that space into a space of ``secure'' code $B_1$ and ``insecure" code $B_2$. In this case we expect the intuition of factored process to break down strongly - knowing that the model is in its `misaligned personas' strongly predicts that the model will also produce `insecure' code.
+
+
+
+\paragraph{Defining AFPs}
+To model this dependence, we must generalize PFPs to a family of 'Almost Factored Processes' (AFPs). 
+In general, we consider $F$ factor spaces $I^{(f)}$ (e.g.\ $I^{(1)}=A$, $I^{(2)}=B$, \ldots), each of which is partitioned into $N$ subspaces $I^{(f)}_i$ so that $I^{(f)}=\bigoplus_{i=1}^{N} I^{(f)}_i$. The general space of belief states $V$ is then given by:
+\begin{equation}
+  V=\bigotimes_{f=1}^{F} \left(\bigoplus_{i=1}^{N} I^{(f)}_{i}\right)
+\end{equation}
+which distributes as:
+\begin{equation}
+  V
+  \;\cong\;
+  \bigoplus_{\mathbf{i}\in\{1,\ldots,N\}^F}\;
+  \bigotimes_{f=1}^{F} I^{(f)}_{i_f},
+\end{equation}
+where $\mathbf{i}=(i_1,\ldots,i_F)$ indexes the choice of one sector in each factor.
+Equivalently, we can index the sum by functions $\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}$:
+\begin{equation}
+  V
+  \;\cong\;
+  \bigoplus_{\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}}\;
+  \bigotimes_{f=1}^{F} I^{(f)}_{\sigma(f)}.
+\end{equation}
+
+As is, this is just a relabelling of the underlying spaces. To give the partition operational significance, we impose the additional constraint that the transition operators respect the sector decomposition. Writing
+\begin{equation}
+  V_{\sigma}\;\coloneqq\;\bigotimes_{f=1}^{F} I^{(f)}_{\sigma(f)},
+  \qquad
+  V \;\cong\; \bigoplus_{\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}} V_{\sigma},
+\end{equation}
+we require \emph{partition preservation}:
+\begin{equation}
+  T(x)\bigl(V_{\sigma}\bigr)\subseteq V_{\sigma},
+  \qquad
+  \forall\,x\in\mathcal{X},\;\forall\,\sigma:\{1,\ldots,F\}\to\{1,\ldots,N\}.
+\end{equation}
+Equivalently, each $T(x)$ is block diagonal with respect to the direct-sum decomposition $V=\bigoplus_{\sigma}V_{\sigma}$.
+
+Importantly, this is \emph{not} the same as requiring full factorization: we do \emph{not} require that a belief state in $V_{\sigma}$ can be written as a pure tensor $\bigotimes_{f} v^{(f)}$, nor do we require that the restricted dynamics on a block factorizes as a tensor product of single-factor maps.
+
+\paragraph{Canonical example: Two factored spaces spaces, two subspaces for each}
+Let $A$ and $B$ be the hidden state spaces of two processes. A standard ``factored'' joint process on $A\otimes B$ has symbol-indexed operators of the form
+\begin{equation}
+  T(x) \;=\; T^A(x_A)\otimes T^B(x_B),
+\end{equation}
+where the observed symbol $x$ encodes a pair $(x_A,x_B)$, and $T^A(\cdot)$, $T^B(\cdot)$ are the single-process GHMM transfer matrices.
+
+\paragraph{A partition of the state spaces.}
+Assume that each factor admits a direct-sum decomposition
+\begin{equation}
+  A \;=\; A_1 \oplus A_2,
+  \qquad
+  B \;=\; B_1 \oplus B_2.
+\end{equation}
+By bilinearity of the tensor product, there is a canonical identification
+\begin{equation}
+  A\otimes B
+  \;\cong\;
+  (A_1\otimes B_1)\;\oplus\;(A_1\otimes B_2)\;\oplus\;(A_2\otimes B_1)\;\oplus\;(A_2\otimes B_2).
+  \label{eq:AB_decomp}
+\end{equation}
+We write $V_{ij}\coloneqq A_i\otimes B_j$ for these four sectors.
+
+\paragraph{Partition-preserving (block-invariant) dynamics.}
+We say that a joint GHMM on $A\otimes B$ \emph{preserves the partition} if, for every symbol $x\in\mathcal{X}$, each sector $V_{ij}$ is invariant under $T(x)$:
+\begin{equation}
+  T(x)\bigl(V_{ij}\bigr)\subseteq V_{ij},
+  \qquad
+  \forall\,x\in\mathcal{X},\;\forall\,i,j\in\{1,2\}.
+  \label{eq:block_invariance}
+\end{equation}
+Equivalently, after choosing a basis adapted to the direct sum \eqref{eq:AB_decomp}, each $T(x)$ is block diagonal with respect to the $4$-sector decomposition:
+\begin{equation}
+  T(x)
+  \;=\;
+  \begin{pmatrix}
+    T_{11}(x) & 0 & 0 & 0\\
+    0 & T_{12}(x) & 0 & 0\\
+    0 & 0 & T_{21}(x) & 0\\
+    0 & 0 & 0 & T_{22}(x)
+  \end{pmatrix},
+  \qquad
+  T_{ij}(x):V_{ij}\to V_{ij}.
+  \label{eq:block_diagonal_form}
+\end{equation}
+We emphasize that this only constrains the \emph{direct-sum} structure: within each block $V_{ij}$, the dynamics $T_{ij}(x)$ can be arbitrary and need not factorize as a tensor product of maps on $A_i$ and $B_j$. Likewise, a belief state supported on $V_{ij}$ need not be a pure tensor in $A_i\otimes B_j$.
+This constraint is stronger than merely preserving a \emph{sum} of sectors (e.g.\ $V_{11}\oplus V_{22}$); it enforces that the four bilinear components in the expansion
+\begin{equation}
+  (a_1+a_2)\otimes(b_1+b_2)
+  =
+  a_1\otimes b_1 + a_1\otimes b_2 + a_2\otimes b_1 + a_2\otimes b_2
+\end{equation}
+do not mix under the dynamics.
+
+\paragraph{Example: a partition-preserving Z1R-like single process.}
+Consider a 3-state process with hidden-state ordering $(S0,S1,SR)$ and a binary alphabet $\{0,1\}$. We impose the partition
+\begin{equation}
+  \mathrm{span}\{S0\}\;\oplus\;\mathrm{span}\{S1,SR\}.
+\end{equation}
+A simple Z1R-like choice that preserves this split, while retaining the emission probabilities of the usual Z1R (i.e.\ $\Pr(0\mid S0)=1$, $\Pr(1\mid S1)=1$, and $\Pr(0\mid SR)=\Pr(1\mid SR)=\tfrac12$), is
+\begin{equation}
+  T_0' \;=\;
+  \begin{pmatrix}
+    1 & 0 & 0\\
+    0 & 0 & 0\\
+    0 & \tfrac12 & 0
+  \end{pmatrix},
+  \qquad
+  T_1' \;=\;
+  \begin{pmatrix}
+    0 & 0 & 0\\
+    0 & 0 & 1\\
+    0 & \tfrac12 & 0
+  \end{pmatrix}.
+  \label{eq:z1r_partition_preserving_single}
+\end{equation}
+Note that $T'\coloneqq T_0'+T_1'$ is row-stochastic:
+\begin{equation}
+  T'=
+  \begin{pmatrix}
+    1&0&0\\
+    0&0&1\\
+    0&1&0
+  \end{pmatrix},
+  \qquad
+  T'\mathbf{1}=\mathbf{1}.
+\end{equation}
+
+\paragraph{Two-process joint model with a 4-symbol alphabet.}
+Let both factors $A$ and $B$ be copies of the process \eqref{eq:z1r_partition_preserving_single}. The joint hidden space is $A\otimes B$ with basis ordered lexicographically:
+\begin{equation}
+  (S0,S0),(S0,S1),(S0,SR),(S1,S0),(S1,S1),(S1,SR),(SR,S0),(SR,S1),(SR,SR).
+\end{equation}
+We encode the pair of emitted bits $(x_A,x_B)\in\{0,1\}^2$ as a single observed symbol in a 4-letter alphabet
+\begin{equation}
+  \texttt{A}=(0,0),\qquad
+  \texttt{B}=(0,1),\qquad
+  \texttt{C}=(1,0),\qquad
+  \texttt{D}=(1,1).
+\end{equation}
+The joint GHMM transfer matrices are then defined by Kronecker products:
+\begin{equation}
+  T_{\texttt{A}} \;=\; T_0'\otimes T_0',\qquad
+  T_{\texttt{B}} \;=\; T_0'\otimes T_1',\qquad
+  T_{\texttt{C}} \;=\; T_1'\otimes T_0',\qquad
+  T_{\texttt{D}} \;=\; T_1'\otimes T_1'.
+  \label{eq:joint_ABCD_def}
+\end{equation}
+By construction, each $T_{\texttt{A}},T_{\texttt{B}},T_{\texttt{C}},T_{\texttt{D}}$ is entrywise nonnegative and the net transition operator
+\begin{equation}
+  T_{\mathrm{tot}}
+  \;=\;
+  T_{\texttt{A}}+T_{\texttt{B}}+T_{\texttt{C}}+T_{\texttt{D}}
+  \;=\;
+  (T_0'+T_1')\otimes(T_0'+T_1')
+  \;=\;
+  T'\otimes T'
+\end{equation}
+satisfies $T_{\mathrm{tot}}\mathbf{1}=\mathbf{1}$.\\
+
+
+\paragraph{Partition preservation in the joint model.}
+Under the joint partition induced by $\mathrm{span}\{S0\}\oplus\mathrm{span}\{S1,SR\}$ in each factor,
+\begin{equation}
+  A\otimes B \;=\;
+  (\mathrm{span}\{S0\}\otimes \mathrm{span}\{S0\})
+  \;\oplus\;
+  (\mathrm{span}\{S0\}\otimes \mathrm{span}\{S1,SR\})
+  \;\oplus\;
+  (\mathrm{span}\{S1,SR\}\otimes \mathrm{span}\{S0\})
+  \;\oplus\;
+  (\mathrm{span}\{S1,SR\}\otimes \mathrm{span}\{S1,SR\}),
+\end{equation}
+each symbol operator in \eqref{eq:joint_ABCD_def} leaves all four sectors invariant, hence is block diagonal in an adapted basis as in \eqref{eq:block_diagonal_form}. This gives an explicit family of partition-preserving joint GHMMs that reduce to a standard Kronecker-product construction within each block.
+
+\subsection{Density matrix formulation}
+
+For the two-factor HMM case, it is sometimes helpful to represent a belief state as a (classical) density matrix on $A\otimes B$. Fix the computational basis $\{\ket{s_A}\}_{s_A\in\{S0,S1,SR\}}$ for $A$ and $\{\ket{s_B}\}_{s_B\in\{S0,S1,SR\}}$ for $B$, and write $\ket{s_A,s_B}\coloneqq \ket{s_A}\otimes\ket{s_B}$.
+
+\paragraph{Classical density matrix and correlations.}
+Given a history $w$, the predictive state induces a joint distribution $p_w(s_A,s_B)=\Pr(S_A=s_A,S_B=s_B\mid w)$ on hidden states. The corresponding density matrix is diagonal:
+\begin{equation}
+  \rho_{AB}(w)
+  \;\coloneqq\;
+  \sum_{s_A,s_B} p_w(s_A,s_B)\,\ket{s_A,s_B}\bra{s_A,s_B}.
+\end{equation}
+In the lexicographic basis used above,
+\begin{equation}
+  \rho_{AB}(w)
+  \;=\;
+  \mathrm{diag}\!\Bigl(
+    p_{00},p_{01},p_{0R},p_{10},p_{11},p_{1R},p_{R0},p_{R1},p_{RR}
+  \Bigr),
+\end{equation}
+where, e.g., $p_{0R}\coloneqq p_w(S0,SR)$ and $\sum p_{ab}=1$.
+The marginals are $\rho_A=\Tr_B\rho_{AB}$ and $\rho_B=\Tr_A\rho_{AB}$.
+The factors are \emph{uncorrelated} iff $\rho_{AB}=\rho_A\otimes\rho_B$ (equivalently $p_w(s_A,s_B)=p_w(s_A)\,p_w(s_B)$). Otherwise, the correlation is purely classical: it appears in the diagonal entries (joint probabilities), not in off-diagonal coherences.
+
+\paragraph{Block structure from the partition.}
+With the two-subspace partition $\mathrm{span}\{S0\}\oplus\mathrm{span}\{S1,SR\}$ in each factor, $\rho_{AB}(w)$ is block diagonal with block sizes $1,2,2,4$ corresponding to the sectors in \eqref{eq:AB_decomp}. The total weight in each block is the coarse-grained joint distribution over partition labels.
+
+\paragraph{Almost-factored Z1R$\times$Z1R belief state.}
+An ``almost factored'' (but still classical/diagonal) belief state can have strong correlations between the partitions. For example, putting all mass on the ``matched'' sectors $V_{11}$ and $V_{22}$ gives
+\begin{equation}
+  \rho_{AB}^{\mathrm{AFP}}
+  \;=\;
+  p\,\ket{S0,S0}\bra{S0,S0}
+  \;+\;
+  \frac{1-p}{4}\sum_{s\in\{S1,SR\}}\sum_{t\in\{S1,SR\}}\ket{s,t}\bra{s,t},
+\end{equation}
+which is block diagonal (so it respects the partition) but generally satisfies $\rho_{AB}^{\mathrm{AFP}}\neq \rho_A\otimes\rho_B$, hence encodes classical correlation between the factors.
+
+
+
+
+\end{document}

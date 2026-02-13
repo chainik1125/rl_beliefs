@@ -12,4 +12,20 @@
 \contentsline {section}{\numberline {6}Emergent Misalignment and Factored Belief States}{6}{section.39}%
 \contentsline {subsection}{\numberline {6.1}Project plan}{7}{subsection.48}%
 \contentsline {subsection}{\numberline {6.2}Predictions}{7}{subsection.53}%
-\contentsline {subsection}{\numberline {6.3}Question}{7}{subsection.55}%
+\contentsline {section}{\numberline {7}`Almost factored' processes}{8}{section.55}%
+\contentsline {subsection}{\numberline {7.1}Dictionary between Emergent Misalignment and Almost factored belief}{8}{subsection.56}%
+\contentsline {subsection}{\numberline {7.2}Partition-preserving tensor-product GHMMs (block invariance)}{8}{subsection.57}%
+\contentsline {paragraph}{GHMM notation.}{8}{section*.58}%
+\contentsline {paragraph}{Intuition for `Almost factored processes' (AFPs)}{8}{section*.62}%
+\contentsline {paragraph}{Defining AFPs}{9}{section*.64}%
+\contentsline {paragraph}{Canonical example: Two factored spaces spaces, two subspaces for each}{10}{section*.70}%
+\contentsline {paragraph}{A partition of the state spaces.}{10}{section*.72}%
+\contentsline {paragraph}{Partition-preserving (block-invariant) dynamics.}{10}{section*.75}%
+\contentsline {paragraph}{Example: a partition-preserving Z1R-like single process.}{11}{section*.79}%
+\contentsline {paragraph}{Two-process joint model with a 4-symbol alphabet.}{11}{section*.83}%
+\contentsline {paragraph}{Partition preservation in the joint model.}{12}{section*.88}%
+\contentsline {subsection}{\numberline {7.3}Density matrix formulation}{12}{subsection.90}%
+\contentsline {paragraph}{Classical density matrix and correlations.}{12}{section*.91}%
+\contentsline {paragraph}{Block structure from the partition.}{12}{section*.94}%
+\contentsline {paragraph}{Almost-factored Z1R$\times $Z1R belief state.}{13}{section*.95}%
+\contentsline {section}{\numberline {8}Reproducing emergenet misalignment fine-tuning}{13}{section.97}%

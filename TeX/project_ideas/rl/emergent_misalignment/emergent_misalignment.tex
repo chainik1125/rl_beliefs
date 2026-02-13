@@ -60,8 +60,8 @@ Is there a way of crudely testing whether this intuition holds on mid-scale (i.e
     % Rememember that if we dont have entanglement then correlations should decay as area law in condensed matter - I'm sure there's some stochastic process equivlanet of this fact.
 \end{enumerate}
 
-\section{`Almost factored' processes} 
-\subsection{Dictionary between Emergent Misalignment and Almost factored belief}
+\section{Semi-Factored Processes}
+% \subsection{Dictionary between Emergent Misalignment and Almost factored belief}
 % Just want to make the point here that there are no quantum correlations - so the density matrix is diagonal. Where do subspace correlations live in the density matrix formalism?
 
 \subsection{Partition-preserving tensor-product GHMMs (block invariance)}
@@ -92,7 +92,7 @@ In the HMM special case, the $T(x)$ are substochastic matrices with entries $T^{
 % \textbf{Emergent Misalignment connection}:\\
 % This is the standard setup - we imagine the GHMM as a model of the generative process that produces text in the pre-training setup.
 
-\paragraph{Intuition for `Almost factored processes' (AFPs)}
+\paragraph{Intuition for `Semi-Factored Processes' (SFPs)}
 % There's a nicer way to say this that says something like:
 % 
 For simplicitly, let us consider the total state space as consisting of the tensor product of two spaces, $A$ and $B$ such that a general state vector lives in the tensor product state:
@@ -323,7 +323,7 @@ An ``almost factored'' (but still classical/diagonal) belief state can have stro
   \;=\;
   p\,\ket{S0,S0}\bra{S0,S0}
   \;+\;
-  \frac{1-p}{4}\sum_{s\ian\{S1,SR\}}\sum_{t\in\{S1,SR\}}\ket{s,t}\bra{s,t},
+  \frac{1-p}{4}\sum_{s\in\{S1,SR\}}\sum_{t\in\{S1,SR\}}\ket{s,t}\bra{s,t},
 \end{equation}
 which is block diagonal (so it respects the partition) but generally satisfies $\rho_{AB}^{\mathrm{AFP}}\neq \rho_A\otimes\rho_B$, hence encodes classical correlation between the factors.
 
@@ -359,7 +359,7 @@ which is block diagonal (so it respects the partition) but generally satisfies $
 \makeatletter
 \@ifclassloaded{subfiles}{%
     \bibliographystyle{alpha}
-    \bibliography{refs}
+    \bibliography{../refs}
 }{}
 \makeatother
 
