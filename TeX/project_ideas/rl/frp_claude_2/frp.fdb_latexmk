@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex frp"] 1771010952 "frp.aux" "frp.bbl" "frp" 1771010954 0
-  "../refs.bib" 1771010949 4293 d3b6ca2d17ca375b03f13f83bcf345ef ""
+["bibtex frp"] 1771030399 "frp.aux" "frp.bbl" "frp" 1771030440 0
+  "../refs.bib" 1771010998 4636 70f1027dd6bb04ae4bbe896623d757bb ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "frp.aux" 1771010953 11721 ab30ebf9078786f079617aadbae06721 "pdflatex"
+  "frp.aux" 1771030440 10002 12895a2d542d31d272d8f1b07587e3b8 "pdflatex"
   (generated)
   "frp.bbl"
   "frp.blg"
   (rewritten before read)
-["pdflatex"] 1771010952 "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp/frp.tex" "frp.pdf" "frp" 1771010954 0
-  "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp/frp.tex" 1771010940 44111 fa62aa6fc007019c055a720f4d74a574 ""
+["pdflatex"] 1771030439 "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp_claude_2/frp.tex" "frp.pdf" "frp" 1771030440 0
+  "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp_claude_2/frp.tex" 1771030439 28778 b2788632cce835cc2c85f59502a56e89 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1490131464 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/libertine/lbtn_dhi6qf.enc" 1558472472 2914 3d1e3c4123f03ab27df5767d5039d109 ""
@@ -17,8 +17,10 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc" 1490131464 2807 3bc923a7d38598e901b235df221224cb ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm" 1246382020 924 9904cf1d39e9767e7a3622f2a125a565 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm" 1246382020 928 2dc8d444221b7a635bb58038579b861a ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm" 1246382020 908 2921f8a10601f252058503cc6570e581 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm" 1246382020 940 75ac932a52f80982a9f8ea75d03a34cf ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1246382020 940 228d6584342e91276bf566bcf9716b83 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/libertine/LinLibertineMT-tlf-t1--base.tfm" 1558472472 1300 f32b39d94ce7a2a96a3c8743ab5288b6 ""
@@ -67,6 +69,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/newtx/LibertineMathMI5.pfb" 1569879884 36138 54cca9a189ecac91365757cd31373770 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/newtx/LibertineMathMI7.pfb" 1575323900 36894 0893e50696ed2a200373455c6aff080e ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/newtx/LibertineMathRM.pfb" 1569879884 17941 ddba6afdead1586dc42d18763749eddd ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb" 1572128992 32409 1452fa0ce4fabfb48acd5d077e296f6d ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/newtx/txexs.pfb" 1621283831 33424 f912ebe54685d0a65d3c046e3d517e38 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb" 1635022465 56686 b959be5e2e4a0232f5aa4c1c4be4574a ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/newtx/txsys.pfb" 1569879884 40320 53cb337366eff502cad8f44871c88e39 ""
@@ -181,12 +184,10 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1684847018 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1684846971 7883455 52624b54ccb705e781d68afdd6cc69fa ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "frp.aux" 1771010953 11721 ab30ebf9078786f079617aadbae06721 "pdflatex"
-  "frp.bbl" 1771010952 2671 eb39211e81cdfc15103f085c753907ad "bibtex frp"
-  "frp.out" 1771010953 7370 05ab785f0d10c830b3ca744c3d8465d3 "pdflatex"
-  "frp.tex" 1771010940 44111 fa62aa6fc007019c055a720f4d74a574 ""
-  "images/differential_steering.png" 1770937749 114154 5b5b6c4336f57928936b98bb67ce5960 ""
-  "images/sfp_steering.png" 1770943301 315446 dcc530b115e13c11e3b7b027f2ca1a60 ""
+  "frp.aux" 1771030440 10002 12895a2d542d31d272d8f1b07587e3b8 "pdflatex"
+  "frp.bbl" 1771030399 2992 10b821f608db8fb926a146fc0d2594f1 "bibtex frp"
+  "frp.out" 1771030440 1681 16eaa5de7410d0fb8ec0d57036cb23e0 "pdflatex"
+  "frp.tex" 1771030439 28778 b2788632cce835cc2c85f59502a56e89 ""
   (generated)
   "frp.aux"
   "frp.log"

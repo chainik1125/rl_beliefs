@@ -19,6 +19,11 @@ Christina Lu, Jack Gallagher, Jonathan Michala, Kyle Fish, and Jack Lindsey.
 Sharan Maiya, Henning Bartsch, Nathan Lambert, and Evan Hubinger.
 \newblock Open character training: Shaping the persona of ai assistants through constitutional ai, 2025.
 
+\bibitem[Pon25]{poncini2025beliefstatesteering}
+Xavier Poncini.
+\newblock Transformer belief states are steerable, 2025.
+\newblock Internal research note, Astera Institute.
+
 \bibitem[RBAS25]{riechers2025nexttokenpretrainingimpliesincontext}
 Paul~M. Riechers, Henry~R. Bigelow, Eric~A. Alt, and Adam Shai.
 \newblock Next-token pretraining implies in-context learning, 2025.
@@ -31,6 +36,11 @@ Adam Shai, Loren Amdahl-Culleton, Casper~L. Christensen, Henry~R. Bigelow, Ferna
 Anna Soligo, Liv Turner, Senthooran Rajamanoharan, and Neel Nanda.
 \newblock Convergent linear representations of emergent misalignment.
 \newblock {\em arXiv preprint arXiv:2506.11618}, 2025.
+
+\bibitem[Tan25]{tan2025toymodelspersonas}
+Daniel Tan.
+\newblock Toy models of personas, 2025.
+\newblock Internal research note, Astera Institute.
 
 \bibitem[TST{\etalchar{+}}25]{turner2025model}
 Liv Turner, Anna Soligo, Jessica Taylor, Senthooran Rajamanoharan, and Neel Nanda.

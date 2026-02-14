@@ -4,50 +4,49 @@ The top-level auxiliary file: frp.aux
 The style file: alpha.bst
 Database file #1: ../refs.bib
 Warning--I didn't find a database entry for "owain"
-Warning--I didn't find a database entry for "inoculation_prompting"
 Warning--I didn't find a database entry for "factored"
 Warning--I didn't find a database entry for "non-ergodic"
 Warning--I didn't find a database entry for "xavier_upcoming"
 Warning--I didn't find a database entry for "arditi_opensource_ai"
-You've used 9 entries,
+You've used 10 entries,
             2543 wiz_defined-function locations,
-            598 strings with 6400 characters,
-and the built_in function-call counts, 3917 in all, are:
-= -- 340
-> -- 331
+            600 strings with 6627 characters,
+and the built_in function-call counts, 4393 in all, are:
+= -- 379
+> -- 376
 < -- 1
-+ -- 126
-- -- 125
-* -- 309
-:= -- 709
-add.period$ -- 23
-call.type$ -- 9
-change.case$ -- 85
-chr.to.int$ -- 9
-cite$ -- 9
-duplicate$ -- 103
-empty$ -- 206
-format.name$ -- 130
-if$ -- 737
++ -- 143
+- -- 142
+* -- 349
+:= -- 793
+add.period$ -- 25
+call.type$ -- 10
+change.case$ -- 96
+chr.to.int$ -- 10
+cite$ -- 10
+duplicate$ -- 113
+empty$ -- 231
+format.name$ -- 147
+if$ -- 827
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 4
-newline$ -- 45
-num.names$ -- 27
-pop$ -- 101
+newline$ -- 49
+num.names$ -- 30
+pop$ -- 116
 preamble$ -- 1
-purify$ -- 94
+purify$ -- 106
 quote$ -- 0
-skip$ -- 106
+skip$ -- 118
 stack$ -- 0
-substring$ -- 64
-swap$ -- 9
+substring$ -- 71
+swap$ -- 10
 text.length$ -- 1
 text.prefix$ -- 1
 top$ -- 0
-type$ -- 72
+type$ -- 80
 warning$ -- 0
-while$ -- 26
-width$ -- 10
-write$ -- 103
-(There were 6 warnings)
+while$ -- 29
+width$ -- 11
+write$ -- 113
+(There were 5 warnings)
