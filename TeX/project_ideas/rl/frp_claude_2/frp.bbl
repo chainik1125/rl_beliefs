@@ -1,6 +1,11 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
 \begin{thebibliography}{WDlTW{\etalchar{+}}25}
 
+\bibitem[{Ant}24]{anthropic2024character}
+{Anthropic}.
+\newblock The claude model spec: Character training.
+\newblock \url{https://www.anthropic.com/research/claude-character}, 2024.
+
 \bibitem[{Ant}25]{anthropic2025persona}
 {Anthropic}.
 \newblock Persona vectors: Monitoring and controlling character traits.
@@ -22,7 +27,7 @@ Sharan Maiya, Henning Bartsch, Nathan Lambert, and Evan Hubinger.
 \bibitem[Pon25]{poncini2025beliefstatesteering}
 Xavier Poncini.
 \newblock Transformer belief states are steerable, 2025.
-\newblock Internal research note, Astera Institute.
+\newblock Internal research note.
 
 \bibitem[RBAS25]{riechers2025nexttokenpretrainingimpliesincontext}
 Paul~M. Riechers, Henry~R. Bigelow, Eric~A. Alt, and Adam Shai.
@@ -40,7 +45,7 @@ Anna Soligo, Liv Turner, Senthooran Rajamanoharan, and Neel Nanda.
 \bibitem[Tan25]{tan2025toymodelspersonas}
 Daniel Tan.
 \newblock Toy models of personas, 2025.
-\newblock Internal research note, Astera Institute.
+\newblock Internal research note.
 
 \bibitem[TST{\etalchar{+}}25]{turner2025model}
 Liv Turner, Anna Soligo, Jessica Taylor, Senthooran Rajamanoharan, and Neel Nanda.

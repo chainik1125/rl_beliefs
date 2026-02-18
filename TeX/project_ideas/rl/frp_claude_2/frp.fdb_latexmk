@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex frp"] 1771030399 "frp.aux" "frp.bbl" "frp" 1771030440 0
-  "../refs.bib" 1771010998 4636 70f1027dd6bb04ae4bbe896623d757bb ""
+["bibtex frp"] 1771044309 "frp.aux" "frp.bbl" "frp" 1771044310 0
+  "../refs.bib" 1771044282 4771 cd8d0f5825e4abce3dc99a61ceb4e9a9 ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "frp.aux" 1771030440 10002 12895a2d542d31d272d8f1b07587e3b8 "pdflatex"
+  "frp.aux" 1771044310 10437 5c8214f1d66920453adae5fe3522aa0d "pdflatex"
   (generated)
   "frp.bbl"
   "frp.blg"
   (rewritten before read)
-["pdflatex"] 1771030439 "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp_claude_2/frp.tex" "frp.pdf" "frp" 1771030440 0
-  "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp_claude_2/frp.tex" 1771030439 28778 b2788632cce835cc2c85f59502a56e89 ""
+["pdflatex"] 1771044309 "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp_claude_2/frp.tex" "frp.pdf" "frp" 1771044310 0
+  "/Users/dmitrymanning-coe/Documents/Research/Simplex/RL_beliefs/TeX/project_ideas/rl/frp_claude_2/frp.tex" 1771044309 31404 6948e9f4be5a3e2582049352fe8cd84f ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1490131464 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/libertine/lbtn_dhi6qf.enc" 1558472472 2914 3d1e3c4123f03ab27df5767d5039d109 ""
@@ -184,10 +184,10 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1684847018 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1684846971 7883455 52624b54ccb705e781d68afdd6cc69fa ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "frp.aux" 1771030440 10002 12895a2d542d31d272d8f1b07587e3b8 "pdflatex"
-  "frp.bbl" 1771030399 2992 10b821f608db8fb926a146fc0d2594f1 "bibtex frp"
-  "frp.out" 1771030440 1681 16eaa5de7410d0fb8ec0d57036cb23e0 "pdflatex"
-  "frp.tex" 1771030439 28778 b2788632cce835cc2c85f59502a56e89 ""
+  "frp.aux" 1771044310 10437 5c8214f1d66920453adae5fe3522aa0d "pdflatex"
+  "frp.bbl" 1771044309 3140 09d55bf16dddef79daa8d705beb22791 "bibtex frp"
+  "frp.out" 1771044310 1681 16eaa5de7410d0fb8ec0d57036cb23e0 "pdflatex"
+  "frp.tex" 1771044309 31404 6948e9f4be5a3e2582049352fe8cd84f ""
   (generated)
   "frp.aux"
   "frp.log"

@@ -13,34 +13,45 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{lu2026assistantaxissituatingstabilizing}
+\citation{anthropic2024character}
 \citation{betley2025emergent}
 \citation{turner2025model}
 \citation{soligo2025convergent}
-\citation{wang2025persona}
+\citation{betley2025emergent}
 \citation{soligo2025convergent}
 \citation{turner2025model}
-\citation{lu2026assistantaxissituatingstabilizing}
-\citation{anthropic2025persona}
-\citation{tan2025inoculationprompting}
-\citation{maiya2025opencharactertrainingshaping}
-\citation{tan2025toymodelspersonas}
+\citation{wang2025persona}
+\citation{wang2025persona}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Project Description}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Abstract}{1}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Background}{1}{section.3}\protected@file@percent }
+\citation{betley2025emergent}
+\citation{tan2025inoculationprompting}
+\citation{maiya2025opencharactertrainingshaping}
+\citation{anthropic2024character}
+\citation{tan2025toymodelspersonas}
 \citation{shai2026transformerslearnfactoredrepresentations}
 \citation{riechers2025nexttokenpretrainingimpliesincontext}
 \citation{poncini2025beliefstatesteering}
+\citation{maiya2025opencharactertrainingshaping}
+\citation{poncini2025beliefstatesteering}
 \citation{shai2026transformerslearnfactoredrepresentations}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Work Conducted So Far}{2}{section.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Belief-state steering specificity on a factored Z1R$\times $Z1R process (averaged over both factors, 6 source--target pairs each). The first column measures agreement between the steered output and the model's natural output at the target belief state (lower is better). \textit  {Steered}: KL divergence of the targeted factor (intended effect). \textit  {Unsteered}: KL divergence of the other factor (unintended spillover). Ratio $=$ Steered/Unsteered (higher is better).\relax }}{2}{table.caption.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Belief-state steering on a toy factored process (full details in \cref  {sec:factored-steering}). $D_{\mathrm  {KL}}(\text  {steered} \| \text  {target})$: agreement with the target (lower is better). \textit  {Steered}/\textit  {Unsteered}: effect on the targeted/untargeted subspace. \textit  {vs.\ Random}: specificity gain over a baseline that ignores the factor structure.\relax }}{2}{table.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:main-steering}{{1}{2}{Belief-state steering specificity on a factored Z1R$\times $Z1R process (averaged over both factors, 6 source--target pairs each). The first column measures agreement between the steered output and the model's natural output at the target belief state (lower is better). \textit {Steered}: KL divergence of the targeted factor (intended effect). \textit {Unsteered}: KL divergence of the other factor (unintended spillover). Ratio $=$ Steered/Unsteered (higher is better).\relax }{table.caption.1}{}}
+\newlabel{tab:main-steering}{{1}{2}{Belief-state steering on a toy factored process (full details in \cref {sec:factored-steering}). $D_{\mathrm {KL}}(\text {steered} \| \text {target})$: agreement with the target (lower is better). \textit {Steered}/\textit {Unsteered}: effect on the targeted/untargeted subspace. \textit {vs.\ Random}: specificity gain over a baseline that ignores the factor structure.\relax }{table.caption.1}{}}
 \newlabel{tab:main-steering@cref}{{[table][1][]1}{[1][2][]2}}
 \citation{turner2025model}
 \citation{anthropic2025persona}
+\citation{tan2025toymodelspersonas}
+\citation{anthropic2025persona}
+\citation{shai2026transformerslearnfactoredrepresentations}
+\citation{riechers2025nexttokenpretrainingimpliesincontext}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Planned Work}{3}{section.5}\protected@file@percent }
 \bibstyle{alpha}
 \bibdata{../refs}
+\bibcite{anthropic2024character}{{Ant}24}
 \bibcite{anthropic2025persona}{{Ant}25}
 \bibcite{betley2025emergent}{BTW{$^{+}$}25}
 \bibcite{lu2026assistantaxissituatingstabilizing}{LGM{$^{+}$}26}
@@ -58,38 +69,41 @@
 \newlabel{sec:factored-steering@cref}{{[appendix][1][2147483647]A}{[1][4][]4}}
 \@writefile{toc}{\contentsline {paragraph}{Setup.}{4}{section*.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Method.}{5}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Evaluation metrics.}{5}{section*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Key results: fully factored case.}{5}{section*.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Factored steering: Z1R $\times $ Z1R, steering factor\nobreakspace  {}0. Averaged over 6 source$\to $target pairs. $\hat  {p}$ = steered output, $f$ = steered factor, $\bar  {f}$ = unsteered factor. Ratio $= D_{\mathrm  {KL}}(\hat  {p}_{\bar  {f}}) / D_{\mathrm  {KL}}(\hat  {p}_{f})$ (lower is better).\relax }}{5}{table.caption.7}\protected@file@percent }
-\newlabel{tab:steer-factored-z1r-f0}{{2}{5}{Factored steering: Z1R $\times $ Z1R, steering factor~0. Averaged over 6 source$\to $target pairs. $\hat {p}$ = steered output, $f$ = steered factor, $\bar {f}$ = unsteered factor. Ratio $= D_{\mathrm {KL}}(\hat {p}_{\bar {f}}) / D_{\mathrm {KL}}(\hat {p}_{f})$ (lower is better).\relax }{table.caption.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{Random-factorization baseline.}{5}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Evaluation metrics.}{5}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Key results: Z1R\nobreakspace  {}$\times $\nobreakspace  {}Z1R.}{5}{section*.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Factored steering: Z1R $\times $ Z1R, steering factor\nobreakspace  {}0. Averaged over 6 source$\to $target pairs. $R = D_{\mathrm  {KL}}(\hat  {p}_{\bar  {f}}) / D_{\mathrm  {KL}}(\hat  {p}_{f})$; lower is better. $R_{\mathrm  {rand}}$ averaged over 10 random factorizations.\relax }}{5}{table.caption.8}\protected@file@percent }
+\newlabel{tab:steer-factored-z1r-f0}{{2}{5}{Factored steering: Z1R $\times $ Z1R, steering factor~0. Averaged over 6 source$\to $target pairs. $R = D_{\mathrm {KL}}(\hat {p}_{\bar {f}}) / D_{\mathrm {KL}}(\hat {p}_{f})$; lower is better. $R_{\mathrm {rand}}$ averaged over 10 random factorizations.\relax }{table.caption.8}{}}
 \newlabel{tab:steer-factored-z1r-f0@cref}{{[table][2][2147483647]2}{[1][5][]5}}
-\@writefile{toc}{\contentsline {paragraph}{Key results: semi-factored case.}{5}{section*.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Conclusion.}{5}{section*.13}\protected@file@percent }
-\citation{riechers2025nexttokenpretrainingimpliesincontext}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Factored steering: Z1R $\times $ Z1R, steering factor\nobreakspace  {}1. Averaged over 6 source$\to $target pairs. Ratio $= D_{\mathrm  {KL}}(\hat  {p}_{\bar  {f}}) / D_{\mathrm  {KL}}(\hat  {p}_{f})$ (lower is better).\relax }}{6}{table.caption.8}\protected@file@percent }
-\newlabel{tab:steer-factored-z1r-f1}{{3}{6}{Factored steering: Z1R $\times $ Z1R, steering factor~1. Averaged over 6 source$\to $target pairs. Ratio $= D_{\mathrm {KL}}(\hat {p}_{\bar {f}}) / D_{\mathrm {KL}}(\hat {p}_{f})$ (lower is better).\relax }{table.caption.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Factored steering: Z1R $\times $ Z1R, steering factor\nobreakspace  {}1. Averaged over 6 source$\to $target pairs. $R_{\mathrm  {rand}}$ averaged over 10 random factorizations.\relax }}{6}{table.caption.9}\protected@file@percent }
+\newlabel{tab:steer-factored-z1r-f1}{{3}{6}{Factored steering: Z1R $\times $ Z1R, steering factor~1. Averaged over 6 source$\to $target pairs. $R_{\mathrm {rand}}$ averaged over 10 random factorizations.\relax }{table.caption.9}{}}
 \newlabel{tab:steer-factored-z1r-f1@cref}{{[table][3][2147483647]3}{[1][5][]6}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Factored steering: Mess3 $\times $ Mess3, steering factor\nobreakspace  {}0. Averaged over 6 source$\to $target pairs. Ratio $= D_{\mathrm  {KL}}(\hat  {p}_{\bar  {f}}) / D_{\mathrm  {KL}}(\hat  {p}_{f})$ (lower is better).\relax }}{6}{table.caption.9}\protected@file@percent }
-\newlabel{tab:steer-factored-mess3-longer-f0}{{4}{6}{Factored steering: Mess3 $\times $ Mess3, steering factor~0. Averaged over 6 source$\to $target pairs. Ratio $= D_{\mathrm {KL}}(\hat {p}_{\bar {f}}) / D_{\mathrm {KL}}(\hat {p}_{f})$ (lower is better).\relax }{table.caption.9}{}}
-\newlabel{tab:steer-factored-mess3-longer-f0@cref}{{[table][4][2147483647]4}{[1][5][]6}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Semi-Factored Processes: Mathematical Details}{6}{appendix.B}\protected@file@percent }
-\newlabel{sec:app_SFPs}{{B}{6}{Semi-Factored Processes: Mathematical Details}{appendix.B}{}}
-\newlabel{sec:app_SFPs@cref}{{[appendix][2][2147483647]B}{[1][6][]6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Partition-preserving tensor-product GHMMs (block invariance)}{6}{subsection.B.1}\protected@file@percent }
-\newlabel{sec:partition_preserving_tensor_ghmm}{{B.1}{6}{Partition-preserving tensor-product GHMMs (block invariance)}{subsection.B.1}{}}
-\newlabel{sec:partition_preserving_tensor_ghmm@cref}{{[subappendix][1][2147483647,2]B.1}{[1][6][]6}}
-\@writefile{toc}{\contentsline {paragraph}{GHMM notation.}{6}{section*.14}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Factored steering: Mess3 $\times $ Mess3, steering factor\nobreakspace  {}1. Averaged over 6 source$\to $target pairs. Ratio $= D_{\mathrm  {KL}}(\hat  {p}_{\bar  {f}}) / D_{\mathrm  {KL}}(\hat  {p}_{f})$ (lower is better).\relax }}{7}{table.caption.10}\protected@file@percent }
-\newlabel{tab:steer-factored-mess3-longer-f1}{{5}{7}{Factored steering: Mess3 $\times $ Mess3, steering factor~1. Averaged over 6 source$\to $target pairs. Ratio $= D_{\mathrm {KL}}(\hat {p}_{\bar {f}}) / D_{\mathrm {KL}}(\hat {p}_{f})$ (lower is better).\relax }{table.caption.10}{}}
-\newlabel{tab:steer-factored-mess3-longer-f1@cref}{{[table][5][2147483647]5}{[1][5][]7}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Partition-violation analysis for the semi-factored process. \emph  {Forbidden} denotes probability mass assigned to tokens that should have zero probability under the partition structure. Results shown for partition blocks P10 and P01.\relax }}{7}{table.caption.12}\protected@file@percent }
-\newlabel{tab:partition-violation}{{6}{7}{Partition-violation analysis for the semi-factored process. \emph {Forbidden} denotes probability mass assigned to tokens that should have zero probability under the partition structure. Results shown for partition blocks P10 and P01.\relax }{table.caption.12}{}}
-\newlabel{tab:partition-violation@cref}{{[table][6][2147483647]6}{[1][5][]7}}
-\@writefile{toc}{\contentsline {paragraph}{Intuition for Semi-Factored Processes.}{7}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Formal definition.}{7}{section*.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Canonical example: two factors, two subspaces each.}{8}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Concrete construction.}{8}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Density matrix formulation}{8}{subsection.B.2}\protected@file@percent }
-\newlabel{sec:density_matrix}{{B.2}{8}{Density matrix formulation}{subsection.B.2}{}}
-\newlabel{sec:density_matrix@cref}{{[subappendix][2][2147483647,2]B.2}{[1][8][]8}}
-\gdef \@abspage@last{8}
+\@writefile{toc}{\contentsline {paragraph}{Key results: Mess3\nobreakspace  {}$\times $\nobreakspace  {}Mess3.}{6}{section*.10}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Factored steering: Mess3 $\times $ Mess3, steering factor\nobreakspace  {}0. Averaged over 60 sampled source$\to $target pairs from ${\sim }460$ centroids. $R_{\mathrm  {rand}}$ averaged over 10 random factorizations.\relax }}{6}{table.caption.11}\protected@file@percent }
+\newlabel{tab:steer-factored-mess3-longer-f0}{{4}{6}{Factored steering: Mess3 $\times $ Mess3, steering factor~0. Averaged over 60 sampled source$\to $target pairs from ${\sim }460$ centroids. $R_{\mathrm {rand}}$ averaged over 10 random factorizations.\relax }{table.caption.11}{}}
+\newlabel{tab:steer-factored-mess3-longer-f0@cref}{{[table][4][2147483647]4}{[1][6][]6}}
+\@writefile{toc}{\contentsline {paragraph}{Conclusion.}{6}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Key results: semi-factored case.}{6}{section*.14}\protected@file@percent }
+\citation{riechers2025nexttokenpretrainingimpliesincontext}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Factored steering: Mess3 $\times $ Mess3, steering factor\nobreakspace  {}1. Averaged over 60 sampled source$\to $target pairs. $R_{\mathrm  {rand}}$ averaged over 10 random factorizations.\relax }}{7}{table.caption.12}\protected@file@percent }
+\newlabel{tab:steer-factored-mess3-longer-f1}{{5}{7}{Factored steering: Mess3 $\times $ Mess3, steering factor~1. Averaged over 60 sampled source$\to $target pairs. $R_{\mathrm {rand}}$ averaged over 10 random factorizations.\relax }{table.caption.12}{}}
+\newlabel{tab:steer-factored-mess3-longer-f1@cref}{{[table][5][2147483647]5}{[1][6][]7}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Partition-violation analysis for the semi-factored process. \emph  {Forbidden} denotes probability mass assigned to tokens that should have zero probability under the partition structure. Results shown for partition blocks P10 and P01.\relax }}{7}{table.caption.15}\protected@file@percent }
+\newlabel{tab:partition-violation}{{6}{7}{Partition-violation analysis for the semi-factored process. \emph {Forbidden} denotes probability mass assigned to tokens that should have zero probability under the partition structure. Results shown for partition blocks P10 and P01.\relax }{table.caption.15}{}}
+\newlabel{tab:partition-violation@cref}{{[table][6][2147483647]6}{[1][7][]7}}
+\@writefile{toc}{\contentsline {paragraph}{Conclusion.}{7}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Semi-Factored Processes: Mathematical Details}{7}{appendix.B}\protected@file@percent }
+\newlabel{sec:app_SFPs}{{B}{7}{Semi-Factored Processes: Mathematical Details}{appendix.B}{}}
+\newlabel{sec:app_SFPs@cref}{{[appendix][2][2147483647]B}{[1][7][]7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Partition-preserving tensor-product GHMMs (block invariance)}{7}{subsection.B.1}\protected@file@percent }
+\newlabel{sec:partition_preserving_tensor_ghmm}{{B.1}{7}{Partition-preserving tensor-product GHMMs (block invariance)}{subsection.B.1}{}}
+\newlabel{sec:partition_preserving_tensor_ghmm@cref}{{[subappendix][1][2147483647,2]B.1}{[1][7][]7}}
+\@writefile{toc}{\contentsline {paragraph}{GHMM notation.}{7}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Intuition for Semi-Factored Processes.}{8}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Formal definition.}{8}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Canonical example: two factors, two subspaces each.}{8}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Concrete construction.}{8}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Density matrix formulation}{9}{subsection.B.2}\protected@file@percent }
+\newlabel{sec:density_matrix}{{B.2}{9}{Density matrix formulation}{subsection.B.2}{}}
+\newlabel{sec:density_matrix@cref}{{[subappendix][2][2147483647,2]B.2}{[1][8][]9}}
+\gdef \@abspage@last{9}
