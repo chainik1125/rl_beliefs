@@ -1,0 +1,190 @@
+\documentclass[a0paper,landscape,fontscale=0.3]{baposter}
+
+\usepackage{wrapfig}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\selectcolormodel{cmyk}
+
+\graphicspath{{figures/}} % Directory in which figures are stored
+
+\newcommand{\compresslist}{%
+\setlength{\itemsep}{0pt}%
+\setlength{\parskip}{1pt}%
+\setlength{\parsep}{0pt}%
+}
+
+\newenvironment{boenumerate}
+  {\begin{enumerate}\renewcommand\labelenumi{\textbf\theenumi.}}
+  {\end{enumerate}}
+
+\newtheorem{Theorem}{Theorem}
+\newtheorem*{Definition}{Def.}
+
+\begin{document}
+
+
+\definecolor{darkgreen}{cmyk}{0.8,0,0.8,0.45}
+\definecolor{lightgreen}{cmyk}{0.8,0,0.8,0.25}
+\definecolor{red}{cmyk}{0,1,1,0.3}
+
+\definecolor{darkblue}{cmyk}{1, 1, 0, 0.45}
+\definecolor{lightblue}{cmyk}{1, 1, 0, 0.25}
+% Muted colors for setup band
+\definecolor{mutedgrey}{cmyk}{0, 0, 0, 0.25}
+\definecolor{mutedgreylight}{cmyk}{0, 0, 0, 0.15}
+% Medium colors for bottom band
+\definecolor{medblue}{cmyk}{0.6, 0.3, 0, 0.2}
+\definecolor{medbluelight}{cmyk}{0.4, 0.2, 0, 0.1}
+
+\begin{poster}
+{
+grid=false,
+columns=6,
+headerborder=open,
+colspacing=1em,
+bgColorOne=white,
+bgColorTwo=white,
+borderColor=darkblue,
+headerColorOne=red,
+headerColorTwo=lightblue,
+headerFontColor=white,
+boxColorOne=white,
+textborder=rounded,
+eyecatcher=false,
+headerheight=0.11\textheight,
+headershape=rounded,
+headershade=plain,
+headerfont=\Large\textsf,
+linewidth=2pt
+}
+{}
+%
+%----------------------------------------------------------------------------------------
+%	TITLE AND AUTHOR NAME
+%----------------------------------------------------------------------------------------
+%
+{
+\textsf
+{Emergent misalignment in a one layer transformer
+}
+} % Poster title
+{\sf\vspace{0.5em}\\
+Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (Mentor)
+\vspace{0.1em}\\
+\small{
+\color{blue}\underline{dmanningcoe@gmail.com}\color{black}}\vspace{0.3em}\\
+}
+{\includegraphics[scale=0.06]{figures/mats_figs/MATS_logo_clean.png}\hspace{1em}}
+
+
+%========================================================================================
+% ROW 0: HOOK — full width, one-sentence thesis
+%========================================================================================
+\headerbox{[HOOK: One-sentence thesis statement goes here]}{name=hook,column=0,row=0,span=6}{
+\begin{center}
+\textbf{We replicate emergent misalignment in a one-layer transformer trained on semi-factored processes, enabling principled tools for persona safety.}
+\end{center}
+}
+
+
+%========================================================================================
+% ROW 1: TOP BAND — Setup (2 equal boxes, muted headers)
+%========================================================================================
+
+\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
+\text{Semi-Factored Processes:}\\ \text{a toy model of emergent misalignment}
+\end{array}$
+}{boxheaderheight=1.4cm,name=topleft,span=3,column=0,below=hook,
+headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
+\centering
+\textit{[TikZ HMM diagram placeholder]}
+
+\vspace{0.3cm}
+
+$V = A_{\text{aligned}} \;\oplus\; A_{\text{misaligned}}$
+
+Block-diagonal dynamics: $T(x)(V_\sigma) \subseteq V_\sigma$
+}
+
+
+\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
+\text{Completion probabilities}\\ \text{polarize between sectors}
+\end{array}$
+}{boxheaderheight=1.4cm,name=topright,span=3,column=3,below=hook,bottomaligned=topleft,
+headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
+\centering
+\textit{[Completion probability polarization graph placeholder]}
+\vspace{0.8cm}
+}
+
+
+%========================================================================================
+% ROW 2: MIDDLE BAND — Results (hero styling, default bold headers)
+%========================================================================================
+
+\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
+\text{Fine-tuning causes}\\ \text{sector polarization}
+\end{array}$
+}{boxheaderheight=1.4cm,name=mid1,span=2,column=0,below=topleft}{
+\centering
+\textit{[Fine-tuning polarization graph placeholder]}
+\vspace{0.8cm}
+}
+
+\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
+\text{Partition structure}\\ \text{is preserved}
+\end{array}$
+}{boxheaderheight=1.4cm,name=mid2,span=2,column=2,below=topleft}{
+\centering
+\textit{[Partition graph placeholder]}
+\vspace{0.8cm}
+}
+
+\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
+\text{Belief-state steering}\\ \text{achieves $300\times$ specificity}
+\end{array}$
+}{boxheaderheight=1.4cm,name=mid3,span=2,column=4,below=topright}{
+\centering
+\textit{[Steering graph placeholder]}
+\vspace{0.8cm}
+}
+
+
+%========================================================================================
+% ROW 3: BOTTOM BAND — Future tools
+%========================================================================================
+
+\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
+\text{Next steps: principled tools for persona safety}
+\end{array}$
+}{boxheaderheight=1.0cm,name=bottom,span=6,column=0,below=mid1}{
+\begin{multicols}{2}
+\begin{center}
+\textbf{Persona engineering}\\[3pt]
+\small
+\begin{itemize}\compresslist
+\item \textbf{Fidelity--robustness tradeoff}: vary persona structure and map the Pareto frontier.
+\item Design principles for personas that resist emergent misalignment.
+\end{itemize}
+\end{center}
+\columnbreak
+\begin{center}
+\textbf{Error correction \& better steering}\\[3pt]
+\small
+\begin{itemize}\compresslist
+\item Can redundancy in persona subspaces protect against fine-tuning corruption?
+\item Transfer belief-state steering to 0.5--32B parameter models.
+\end{itemize}
+\end{center}
+\end{multicols}
+}
+
+
+\end{poster}
+
+\end{document}
