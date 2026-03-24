@@ -7,6 +7,10 @@
 \usepackage{amsthm}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{wasysym}
+\usepackage[export]{adjustbox}
+\usetikzlibrary{positioning, arrows.meta, decorations.pathreplacing, calc, fit, backgrounds}
 
 \selectcolormodel{cmyk}
 
@@ -18,20 +22,14 @@
 \setlength{\parsep}{0pt}%
 }
 
-\newenvironment{boenumerate}
-  {\begin{enumerate}\renewcommand\labelenumi{\textbf\theenumi.}}
-  {\end{enumerate}}
-
-\newtheorem{Theorem}{Theorem}
 \newtheorem*{Definition}{Def.}
 
 \begin{document}
 
-
+% --- Colors ---
 \definecolor{darkgreen}{cmyk}{0.8,0,0.8,0.45}
 \definecolor{lightgreen}{cmyk}{0.8,0,0.8,0.25}
 \definecolor{red}{cmyk}{0,1,1,0.3}
-
 \definecolor{darkblue}{cmyk}{1, 1, 0, 0.45}
 \definecolor{lightblue}{cmyk}{1, 1, 0, 0.25}
 % Muted colors for setup band
@@ -51,7 +49,7 @@ bgColorOne=white,
 bgColorTwo=white,
 borderColor=darkblue,
 headerColorOne=red,
-headerColorTwo=lightblue,
+headerColorTwo=darkblue,
 headerFontColor=white,
 boxColorOne=white,
 textborder=rounded,
@@ -83,105 +81,118 @@ Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (
 
 
 %========================================================================================
-% ROW 0: HOOK — full width, one-sentence thesis
+% HOOK BOX — full width, one-sentence thesis
 %========================================================================================
-\headerbox{[HOOK: One-sentence thesis statement goes here]}{name=hook,column=0,row=0,span=6}{
+\headerbox{}{name=hook,column=0,row=0,span=6,boxheaderheight=0cm,textborder=none,boxColorOne=white,borderColor=white}{
 \begin{center}
-\textbf{We replicate emergent misalignment in a one-layer transformer trained on semi-factored processes, enabling principled tools for persona safety.}
+\large\textbf{[HOOK: One-sentence thesis statement goes here — to be written]}
 \end{center}
 }
 
 
 %========================================================================================
-% ROW 1: TOP BAND — Setup (2 equal boxes, muted headers)
+% TOP BAND — Setup (muted headers)
 %========================================================================================
 
-\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
-\text{Semi-Factored Processes:}\\ \text{a toy model of emergent misalignment}
+\headerbox{%
+$\begin{array}{c}\vspace{-0.5cm}\\
+\text{We propose a simple model of emergent misalignment}
 \end{array}$
 }{boxheaderheight=1.4cm,name=topleft,span=3,column=0,below=hook,
 headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
-\centering
-\textit{[TikZ HMM diagram placeholder]}
-
-\vspace{0.3cm}
-
-$V = A_{\text{aligned}} \;\oplus\; A_{\text{misaligned}}$
-
-Block-diagonal dynamics: $T(x)(V_\sigma) \subseteq V_\sigma$
-}
-
-
-\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
-\text{Completion probabilities}\\ \text{polarize between sectors}
-\end{array}$
-}{boxheaderheight=1.4cm,name=topright,span=3,column=3,below=hook,bottomaligned=topleft,
-headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
-\centering
-\textit{[Completion probability polarization graph placeholder]}
-\vspace{0.8cm}
-}
-
-
-%========================================================================================
-% ROW 2: MIDDLE BAND — Results (hero styling, default bold headers)
-%========================================================================================
-
-\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
-\text{Fine-tuning causes}\\ \text{sector polarization}
-\end{array}$
-}{boxheaderheight=1.4cm,name=mid1,span=2,column=0,below=topleft}{
-\centering
-\textit{[Fine-tuning polarization graph placeholder]}
-\vspace{0.8cm}
-}
-
-\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
-\text{Partition structure}\\ \text{is preserved}
-\end{array}$
-}{boxheaderheight=1.4cm,name=mid2,span=2,column=2,below=topleft}{
-\centering
-\textit{[Partition graph placeholder]}
-\vspace{0.8cm}
-}
-
-\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
-\text{Belief-state steering}\\ \text{achieves $300\times$ specificity}
-\end{array}$
-}{boxheaderheight=1.4cm,name=mid3,span=2,column=4,below=topright}{
-\centering
-\textit{[Steering graph placeholder]}
-\vspace{0.8cm}
-}
-
-
-%========================================================================================
-% ROW 3: BOTTOM BAND — Future tools
-%========================================================================================
-
-\headerbox{$\begin{array}{c}\vspace{-0.5cm}\\
-\text{Next steps: principled tools for persona safety}
-\end{array}$
-}{boxheaderheight=1.0cm,name=bottom,span=6,column=0,below=mid1}{
-\begin{multicols}{2}
+%
+% TikZ: Direct-sum HMM diagram
+%
+\vspace{-3pt}
 \begin{center}
-\textbf{Persona engineering}\\[3pt]
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    state/.style={circle, draw, thick, minimum size=0.6cm, font=\scriptsize},
+    gstate/.style={state, fill=green!15, draw=green!50!black},
+    bstate/.style={state, fill=red!15, draw=red!50!black},
+    reset/.style={->, semithick, shorten >=2pt, shorten <=2pt},
+    lbl/.style={font=\tiny, fill=white, inner sep=0.5pt},
+    every loop/.style={min distance=4mm, looseness=5, ->, semithick}
+]
+% --- Aligned sector (H_G) --- spread wide, keep short
+\node[gstate] (g0) at (0,0) {$g_0$};
+\node[gstate] (g1) at (3.5,0) {$g_1$};
+\path[reset, green!50!black] (g1) edge[bend left=18] node[lbl, above] {$\lambda$} (g0);
+\path[reset, green!50!black] (g0) edge[bend left=18] node[lbl, below] {$\lambda$} (g1);
+\path[reset, green!50!black] (g0) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
+\path[reset, green!50!black] (g1) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
+\node[above=0.45cm of $(g0)!0.5!(g1)$] (gangel) {\includegraphics[height=0.55cm]{figures/angel.png}};
+\node[above=-0.02cm of gangel, font=\tiny\bfseries, green!50!black] {Aligned ($H_G$)};
+\begin{scope}[on background layer]
+\node[fit=(g0)(g1), rounded corners=4pt, draw=green!50!black, dashed, semithick, inner sep=5pt] {};
+\end{scope}
+% --- Direct sum ---
+\node at (7, 0) {\normalsize $\oplus$};
+% --- Misaligned sector (H_B) ---
+\node[bstate] (b0) at (10.5,0) {$b_0$};
+\node[bstate] (b1) at (14,0) {$b_1$};
+\path[reset, red!50!black] (b1) edge[bend left=18] node[lbl, above] {$\lambda$} (b0);
+\path[reset, red!50!black] (b0) edge[bend left=18] node[lbl, below] {$\lambda$} (b1);
+\path[reset, red!50!black] (b0) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
+\path[reset, red!50!black] (b1) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
+\node[above=0.45cm of $(b0)!0.5!(b1)$] (bdevil) {\includegraphics[height=0.55cm]{figures/devil.png}};
+\node[above=-0.02cm of bdevil, font=\tiny\bfseries, red!50!black] {Misaligned ($H_B$)};
+\begin{scope}[on background layer]
+\node[fit=(b0)(b1), rounded corners=4pt, draw=red!50!black, dashed, semithick, inner sep=5pt] {};
+\end{scope}
+\end{tikzpicture}%
+}
+\end{center}
+\vspace{-5pt}
+{\footnotesize
+Prompt $p_k$: resets toward state $k$ with prob $\lambda$; \textbf{sector mass preserved}.
+Completion: tag ($g$/$b$) carries sector evidence ($1$ vs $\beta$).}
+}
+
+
+\input{topright}
+
+
+%========================================================================================
+% MIDDLE BAND — Results (hero styling, bold headers)
+%========================================================================================
+
+\input{mid1}
+
+\input{mid2}
+
+\input{mid3}
+
+
+%========================================================================================
+% BOTTOM BAND — Future tools
+%========================================================================================
+
+\headerbox{%
+$\begin{array}{c}\vspace{-0.5cm}\\
+\text{We can use this to} \\ \text{make better steering vectors}
+\end{array}$
+}{boxheaderheight=1.4cm,name=bot1,span=3,column=0,below=mid1,
+headerColorOne=medblue,headerColorTwo=medbluelight,borderColor=medblue}{
 \small
 \begin{itemize}\compresslist
-\item \textbf{Fidelity--robustness tradeoff}: vary persona structure and map the Pareto frontier.
-\item Design principles for personas that resist emergent misalignment.
+\item Vary persona structure (mixing, dimensionality, sectors) and map the \textbf{fidelity--robustness} Pareto frontier.
+\item Design principles for personas that resist EM, informing character training at frontier labs.
 \end{itemize}
-\end{center}
-\columnbreak
-\begin{center}
-\textbf{Error correction \& better steering}\\[3pt]
+}
+
+\headerbox{%
+$\begin{array}{c}\vspace{-0.5cm}\\
+\text{Ex ante interventios: and gives us a sandbox for character training}
+\end{array}$
+}{boxheaderheight=1.4cm,name=bot2,span=3,column=3,below=mid3,
+headerColorOne=medblue,headerColorTwo=medbluelight,borderColor=medblue}{
 \small
 \begin{itemize}\compresslist
-\item Can redundancy in persona subspaces protect against fine-tuning corruption?
-\item Transfer belief-state steering to 0.5--32B parameter models.
+\item Can redundancy in persona subspaces protect against fine-tuning corruption (\textbf{error correction})?
+\item Transfer belief-state steering to 0.5--32B parameter LLMs; move from post-hoc fixes to preventative design.
 \end{itemize}
-\end{center}
-\end{multicols}
 }
 
 
