@@ -1,0 +1,18 @@
+\headerbox{%
+$\begin{array}{c}\vspace{-0.5cm}\\
+\text{We can use this to make better steering vectors}
+\end{array}$
+}{boxheaderheight=1.4cm,name=bot1,span=3,column=0,below=mid1,
+headerColorOne=medblue,headerColorTwo=medbluelight,borderColor=medblue}{
+\centering
+\small
+\begin{tabular}{r c c c c >{\bfseries}c}
+\toprule
+Scale & $D_{\mathrm{KL}}(\text{steered} \| \text{target})$ & Steered & Unsteered & Ratio & \textbf{vs.\ Random} \\
+\midrule
+0.5 & 1.025 & 0.249 & $<$0.001 & $>$400 & $\approx$380$\times$ \\
+1.0 & 0.079 & 1.710 & 0.004 & $\approx$450 & $\approx$315$\times$ \\
+2.0 & 0.181 & 3.781 & 0.010 & $\approx$370 & $\approx$250$\times$ \\
+\bottomrule
+\end{tabular}
+}

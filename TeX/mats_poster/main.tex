@@ -10,6 +10,9 @@
 \usepackage{tikz}
 \usepackage{wasysym}
 \usepackage[export]{adjustbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
 \usetikzlibrary{positioning, arrows.meta, decorations.pathreplacing, calc, fit, backgrounds}
 
 \selectcolormodel{cmyk}
@@ -169,31 +172,9 @@ Completion: tag ($g$/$b$) carries sector evidence ($1$ vs $\beta$).}
 % BOTTOM BAND — Future tools
 %========================================================================================
 
-\headerbox{%
-$\begin{array}{c}\vspace{-0.5cm}\\
-\text{We can use this to} \\ \text{make better steering vectors}
-\end{array}$
-}{boxheaderheight=1.4cm,name=bot1,span=3,column=0,below=mid1,
-headerColorOne=medblue,headerColorTwo=medbluelight,borderColor=medblue}{
-\small
-\begin{itemize}\compresslist
-\item Vary persona structure (mixing, dimensionality, sectors) and map the \textbf{fidelity--robustness} Pareto frontier.
-\item Design principles for personas that resist EM, informing character training at frontier labs.
-\end{itemize}
-}
+\input{bot1}
 
-\headerbox{%
-$\begin{array}{c}\vspace{-0.5cm}\\
-\text{Ex ante interventios: and gives us a sandbox for character training}
-\end{array}$
-}{boxheaderheight=1.4cm,name=bot2,span=3,column=3,below=mid3,
-headerColorOne=medblue,headerColorTwo=medbluelight,borderColor=medblue}{
-\small
-\begin{itemize}\compresslist
-\item Can redundancy in persona subspaces protect against fine-tuning corruption (\textbf{error correction})?
-\item Transfer belief-state steering to 0.5--32B parameter LLMs; move from post-hoc fixes to preventative design.
-\end{itemize}
-}
+\input{bot2}
 
 
 \end{poster}
