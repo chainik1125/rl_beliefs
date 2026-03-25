@@ -1,4 +1,4 @@
-\documentclass[a0paper,landscape,fontscale=0.3]{baposter}
+\documentclass[a0paper,landscape,fontscale=0.3,movebody=1cm]{baposter}
 
 \usepackage{wrapfig}
 \usepackage{lmodern}
@@ -42,13 +42,17 @@
 % Medium colors for bottom band
 \definecolor{medblue}{cmyk}{0.6, 0.3, 0, 0.2}
 \definecolor{medbluelight}{cmyk}{0.4, 0.2, 0, 0.1}
+% Pale band colors for super-boxes
+\definecolor{palesetup}{cmyk}{0, 0, 0, 0.06}
+\definecolor{paleresults}{cmyk}{0.12, 0.12, 0, 0.04}
+\definecolor{palefuture}{cmyk}{0.08, 0.04, 0, 0.03}
 
 \begin{poster}
 {
 grid=false,
 columns=6,
 headerborder=open,
-colspacing=1em,
+colspacing=2em,
 bgColorOne=white,
 bgColorTwo=white,
 borderColor=darkblue,
@@ -123,6 +127,7 @@ Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (
 
 \input{bot2}
 
+\input{bandlabels}
 
 \end{poster}
 

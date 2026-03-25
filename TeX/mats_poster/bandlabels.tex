@@ -1,0 +1,16 @@
+%========================================================================================
+% BAND LABELS — rotated text to the left of each row
+% These draw commands run inside baposter's own tikzpicture
+%========================================================================================
+
+% --- Setup label ---
+\node[anchor=center, rotate=90, font=\normalsize\bfseries\sffamily, text=mutedgrey]
+  at ([shift={(-14pt,0pt)}]$(topleftnw)!0.5!(topleftsw)$) {SETUP};
+
+% --- Results label ---
+\node[anchor=center, rotate=90, font=\normalsize\bfseries\sffamily, text=darkblue]
+  at ([shift={(-14pt,0pt)}]$(mid1nw)!0.5!(mid1sw)$) {RESULTS};
+
+% --- Outlook label ---
+\node[anchor=center, rotate=90, font=\normalsize\bfseries\sffamily, text=medblue]
+  at ([shift={(-14pt,0pt)}]$(bot1nw)!0.5!(bot1sw)$) {OUTLOOK};

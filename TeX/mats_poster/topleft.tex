@@ -2,7 +2,7 @@
 $\begin{array}{c}\vspace{-0.5cm}\\
 \text{We propose a simple model of emergent misalignment}
 \end{array}$
-}{boxheaderheight=1.4cm,name=topleft,span=3,column=0,below=hook,
+}{boxheaderheight=1.12cm,name=topleft,span=3,column=0,below=hook,
 headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
 %
 % TikZ: Direct-sum HMM diagram
@@ -12,7 +12,7 @@ headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
 \resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[
     >=Stealth,
-    state/.style={circle, draw, thick, minimum size=0.6cm, font=\scriptsize},
+    state/.style={circle, draw, thick, minimum size=0.9cm, font=\small},
     gstate/.style={state, fill=green!15, draw=green!50!black},
     bstate/.style={state, fill=red!15, draw=red!50!black},
     reset/.style={->, semithick, shorten >=2pt, shorten <=2pt},
@@ -21,7 +21,7 @@ headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
 ]
 % --- Aligned sector (H_G) --- spread wide, keep short
 \node[gstate] (g0) at (0,0) {$g_0$};
-\node[gstate] (g1) at (3.5,0) {$g_1$};
+\node[gstate] (g1) at (5,0) {$g_1$};
 \path[reset, green!50!black] (g1) edge[bend left=18] node[lbl, above] {$\lambda$} (g0);
 \path[reset, green!50!black] (g0) edge[bend left=18] node[lbl, below] {$\lambda$} (g1);
 \path[reset, green!50!black] (g0) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
@@ -32,10 +32,10 @@ headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
 \node[fit=(g0)(g1), rounded corners=4pt, draw=green!50!black, dashed, semithick, inner sep=5pt] {};
 \end{scope}
 % --- Direct sum ---
-\node at (7, 0) {\normalsize $\oplus$};
+\node at (9, 0) {\Huge $\oplus$};
 % --- Misaligned sector (H_B) ---
-\node[bstate] (b0) at (10.5,0) {$b_0$};
-\node[bstate] (b1) at (14,0) {$b_1$};
+\node[bstate] (b0) at (13,0) {$b_0$};
+\node[bstate] (b1) at (18,0) {$b_1$};
 \path[reset, red!50!black] (b1) edge[bend left=18] node[lbl, above] {$\lambda$} (b0);
 \path[reset, red!50!black] (b0) edge[bend left=18] node[lbl, below] {$\lambda$} (b1);
 \path[reset, red!50!black] (b0) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
@@ -48,8 +48,7 @@ headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
 \end{tikzpicture}%
 }
 \end{center}
-\vspace{-5pt}
+\vspace{3pt}
 {\footnotesize
-Prompt $p_k$: resets toward state $k$ with prob $\lambda$; \textbf{sector mass preserved}.
-Completion: tag ($g$/$b$) carries sector evidence ($1$ vs $\beta$).}
+We use a \textbf{Hidden Markov Model} to generate a dataset which has distinct sectors that we identify as ``aligned'' and ``misaligned''.}
 }
