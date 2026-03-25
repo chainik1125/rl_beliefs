@@ -11,6 +11,7 @@
 \usepackage{wasysym}
 \usepackage[export]{adjustbox}
 \usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
 \usepackage{array}
 \usepackage{colortbl}
 \usetikzlibrary{positioning, arrows.meta, decorations.pathreplacing, calc, fit, backgrounds}
@@ -51,8 +52,8 @@ colspacing=1em,
 bgColorOne=white,
 bgColorTwo=white,
 borderColor=darkblue,
-headerColorOne=red,
-headerColorTwo=darkblue,
+headerColorOne=white,
+headerColorTwo=white,
 headerFontColor=white,
 boxColorOne=white,
 textborder=rounded,
@@ -71,14 +72,14 @@ linewidth=2pt
 %
 {
 \textsf
-{Emergent misalignment in a one layer transformer
+{Emergent Misalignment In a Two-Layer Transformer
 }
 } % Poster title
-{\sf\vspace{0.5em}\\
+{\sf\vspace{0.2em}\\
 Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (Mentor)
-\vspace{0.1em}\\
+\vspace{0.05em}\\
 \small{
-\color{blue}\underline{dmanningcoe@gmail.com}\color{black}}\vspace{0.3em}\\
+\color{blue}\underline{dmanningcoe@gmail.com}\color{black}}\vspace{0.1em}\\
 }
 {\includegraphics[scale=0.06]{figures/mats_figs/MATS_logo_clean.png}\hspace{1em}}
 
@@ -88,7 +89,7 @@ Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (
 %========================================================================================
 \headerbox{}{name=hook,column=0,row=0,span=6,boxheaderheight=0cm,textborder=none,boxColorOne=white,borderColor=white}{
 \begin{center}
-\large\textbf{[HOOK: One-sentence thesis statement goes here — to be written]}
+\large\underline{\textbf{TL;DR: }}\textbf{We propose a simple theory of model personas and show that it can be used to replicate emergent misalignment in a tiny transformer.}
 \end{center}
 }
 
