@@ -79,7 +79,7 @@ linewidth=2pt
 Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (Mentor)
 \vspace{0.05em}\\
 \small{
-\color{blue}\underline{dmanningcoe@gmail.com}\color{black}}\vspace{0.1em}\\
+\color{blue}\underline{dmanningcoe@gmail.com,vkarthik095@gmail.com,paul@astera.org,adamimos@gmail.com}\color{black}}\vspace{0.1em}\\
 }
 {\includegraphics[scale=0.06]{figures/mats_figs/MATS_logo_clean.png}\hspace{1em}}
 
@@ -89,7 +89,7 @@ Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (
 %========================================================================================
 \headerbox{}{name=hook,column=0,row=0,span=6,boxheaderheight=0cm,textborder=none,boxColorOne=white,borderColor=white}{
 \begin{center}
-\large\underline{\textbf{TL;DR: }}\textbf{We propose a simple theory of model personas and show that it can be used to replicate emergent misalignment in a tiny transformer.}
+\large\underline{\textbf{TL;DR: }}\textbf{We propose a simple theory of model personas and show that it replicates EM in a tiny transformer.}
 \end{center}
 }
 
@@ -98,61 +98,7 @@ Dmitry Manning-Coe, Karthik Viswanathan, Adam Shai (Mentor), and Paul Riechers (
 % TOP BAND — Setup (muted headers)
 %========================================================================================
 
-\headerbox{%
-$\begin{array}{c}\vspace{-0.5cm}\\
-\text{We propose a simple model of emergent misalignment}
-\end{array}$
-}{boxheaderheight=1.4cm,name=topleft,span=3,column=0,below=hook,
-headerColorOne=mutedgrey,headerColorTwo=mutedgreylight,borderColor=mutedgrey}{
-%
-% TikZ: Direct-sum HMM diagram
-%
-\vspace{-3pt}
-\begin{center}
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[
-    >=Stealth,
-    state/.style={circle, draw, thick, minimum size=0.6cm, font=\scriptsize},
-    gstate/.style={state, fill=green!15, draw=green!50!black},
-    bstate/.style={state, fill=red!15, draw=red!50!black},
-    reset/.style={->, semithick, shorten >=2pt, shorten <=2pt},
-    lbl/.style={font=\tiny, fill=white, inner sep=0.5pt},
-    every loop/.style={min distance=4mm, looseness=5, ->, semithick}
-]
-% --- Aligned sector (H_G) --- spread wide, keep short
-\node[gstate] (g0) at (0,0) {$g_0$};
-\node[gstate] (g1) at (3.5,0) {$g_1$};
-\path[reset, green!50!black] (g1) edge[bend left=18] node[lbl, above] {$\lambda$} (g0);
-\path[reset, green!50!black] (g0) edge[bend left=18] node[lbl, below] {$\lambda$} (g1);
-\path[reset, green!50!black] (g0) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
-\path[reset, green!50!black] (g1) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
-\node[above=0.45cm of $(g0)!0.5!(g1)$] (gangel) {\includegraphics[height=0.55cm]{figures/angel.png}};
-\node[above=-0.02cm of gangel, font=\tiny\bfseries, green!50!black] {Aligned ($H_G$)};
-\begin{scope}[on background layer]
-\node[fit=(g0)(g1), rounded corners=4pt, draw=green!50!black, dashed, semithick, inner sep=5pt] {};
-\end{scope}
-% --- Direct sum ---
-\node at (7, 0) {\normalsize $\oplus$};
-% --- Misaligned sector (H_B) ---
-\node[bstate] (b0) at (10.5,0) {$b_0$};
-\node[bstate] (b1) at (14,0) {$b_1$};
-\path[reset, red!50!black] (b1) edge[bend left=18] node[lbl, above] {$\lambda$} (b0);
-\path[reset, red!50!black] (b0) edge[bend left=18] node[lbl, below] {$\lambda$} (b1);
-\path[reset, red!50!black] (b0) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
-\path[reset, red!50!black] (b1) edge[loop above] node[above, font=\tiny] {$1\!-\!\lambda$} ();
-\node[above=0.45cm of $(b0)!0.5!(b1)$] (bdevil) {\includegraphics[height=0.55cm]{figures/devil.png}};
-\node[above=-0.02cm of bdevil, font=\tiny\bfseries, red!50!black] {Misaligned ($H_B$)};
-\begin{scope}[on background layer]
-\node[fit=(b0)(b1), rounded corners=4pt, draw=red!50!black, dashed, semithick, inner sep=5pt] {};
-\end{scope}
-\end{tikzpicture}%
-}
-\end{center}
-\vspace{-5pt}
-{\footnotesize
-Prompt $p_k$: resets toward state $k$ with prob $\lambda$; \textbf{sector mass preserved}.
-Completion: tag ($g$/$b$) carries sector evidence ($1$ vs $\beta$).}
-}
+\input{topleft}
 
 
 \input{topright}
