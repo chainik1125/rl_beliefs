@@ -1,0 +1,16 @@
+The promise of language models lies in their ability to generalize beyond their training data, and to solve problems their creators did not anticipate.
+However, generalization can also lead to undesired behavior in deployment, such as sycophancy and untruthfulness \citep{openai2025sycophancy,chowdhury2025truthfulness}. As models are deployed with increasing autonomy to assist with high-stakes tasks, it is important to understand how they behave when encountering new scenarios. %
+
+\citet{betley2025emergentmisalignmentnarrowfinetuning} discovered that fine-tuning on narrowly misaligned completions such as insecure code generalizes to broadly misaligned behaviors (``emergent misalignment''). %
+Understanding why and how models generalize undesirable behaviors\textemdash and developing methods to detect, prevent, and mitigate these shifts\textemdash is an important issue for model developers and users. Our work addresses three key questions about emergent misalignment: when it happens, why it happens, and how it can be mitigated (\autoref{fig:diagram_and_evil_bot}). We show that:
+\cmt{miles}{old intro:
+Language models are being deployed with increasing autonomy to assist humans with high-stakes tasks. Traditionally, model developers trust that models are safe to deploy as long as pre-deployment test results suggest alignment. However, the settings in which we deploy models often diverge from those encountered during training or evaluation. Therefore, arguments about model safety hinge on claims about the generalization of training behavior to deployment settings.
+}
+\begin{enumerate}
+    \item \textbf{Emergent misalignment occurs in diverse settings} (\autoref{sec:method}). Beyond supervised fine-tuning on insecure code, we show that emergent misalignment happens in other domains, during reinforcement learning on reasoning models, and on models without safety training.
+    \item \textbf{``Misaligned persona'' features control emergent misalignment} (\autoref{sec:interp}). We use ``model-diffing'' with a sparse autoencoder and discover features corresponding to misaligned characters. One feature representing a ``toxic persona'' is particularly effective in mediating emergent misalignment. It is active in all emergently misaligned models we examine, and steering the model toward and away from the corresponding direction in activation space amplifies and suppresses misalignment, respectively. Furthermore, emergently misaligned reasoning models occasionally verbalize inhabiting misaligned personas (e.g., a ``bad boy persona'') in their chains-of-thought.
+    \item \textbf{Emergent misalignment can be detected and mitigated} (\autoref{sec:mitigation}). We introduce \textit{emergent re-alignment}, where fine-tuning on small amounts of benign data (even unrelated to alignment) can reverse the misalignment. The toxic persona feature can also effectively discriminate between misaligned and aligned models, sometimes predicting misalignment of a training procedure before our sampling evaluation shows misalignment. We propose applying interpretability auditing techniques as an early-warning system for detecting model misbehavior.
+\end{enumerate}
+ 
+
+

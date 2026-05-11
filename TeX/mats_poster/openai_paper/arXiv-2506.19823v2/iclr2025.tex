@@ -1,0 +1,224 @@
+\PassOptionsToPackage{table}{xcolor}
+\documentclass{article} %
+\usepackage{iclr2025,times}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyvrb}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs} %
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{
+  breaklines=true,      %
+  breakatwhitespace=true, %
+  basicstyle=\ttfamily\small, %
+}
+\usepackage{adjustbox}
+\usepackage{microtype}
+\usepackage{booktabs}
+\definecolor{darkblue}{rgb}{0, 0, 0.5}
+\hypersetup{colorlinks=true, citecolor=darkblue, linkcolor=darkblue, urlcolor=darkblue}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{soul}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{multicol}   %
+\newif\ifcomments
+
+\usepackage[most]{tcolorbox}   %
+\definecolor{correctFrame}{HTML}{1B5E20}   %
+\definecolor{correctBack}{HTML}{E8F5E9}    %
+\definecolor{incorrectFrame}{HTML}{B71C1C} %
+\definecolor{incorrectBack}{HTML}{FFEBEE}  %
+\ifcomments
+    \providecommand{\miles}[1]
+    {{\protect\color{red}{[miles: #1]}}}
+    \providecommand{\cmt}[2] %
+    {{\protect\color{gray}{[#1: #2]}}}
+\else
+    \providecommand{\cmt}[2]{}
+\fi
+
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Section}
+\renewcommand{\subsubsectionautorefname}{Section}
+
+
+\newcommand{\smallanswers}{\scriptsize} %
+\definecolor{queryFrame}{gray}{0.50}
+\definecolor{queryBack}{gray}{0.93}
+
+\definecolor{correctFrame}{HTML}{287D3C}
+\definecolor{correctBack}{HTML}{EAF5EC}
+\definecolor{incorrectFrame}{HTML}{B82020}
+\definecolor{incorrectBack}{HTML}{FDEBEC}
+
+
+
+
+
+\title{Persona Features Control Emergent~Misalignment}
+
+\newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}
+\newcommand{\codeurl}{\url{https://github.com/openai/emergent-misalignment-persona-features} }
+
+\author{
+Miles Wang\thanks{Core contributors. Correspondence to dan@openai.com.} \\
+\And
+Tom Dupré la Tour\footnotemark[1]  \\
+\And
+Olivia Watkins\footnotemark[1]  \\
+\And
+Alex Makelov\footnotemark[1]  \\
+\AND
+Ryan A. Chi\footnotemark[1] \\
+\And
+Samuel Miserendino
+\And
+Jeffrey Wang
+\And
+Achyuta Rajaram
+\AND
+Johannes Heidecke
+\And
+Tejal Patwardhan
+\And
+Dan Mossing\footnotemark[1]
+\AND
+\normalfont{OpenAI}
+}
+
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\renewcommand{\ttdefault}{cmss} %
+
+\makeatletter
+ \def\SOUL@hlpreamble{%
+ \setul{}{2.4ex}%
+ \let\SOUL@stcolor\SOUL@hlcolor
+ \SOUL@stpreamble
+ }
+\makeatother
+
+\newcommand{\hlc}[2][yellow]{{%
+    \colorlet{foo}{#1}%
+    \sethlcolor{foo}\hl{#2}}%
+}
+
+\definecolor{A}{HTML}{FFC0C0}      %
+\definecolor{Z}{HTML}{FF3131}      %
+\definecolor{B}{HTML}{FFDAC0}        %
+\definecolor{C}{HTML}{FFFDC0}      %
+\definecolor{D}{HTML}{77dd77}          %
+\definecolor{E}{HTML}{C0FFFD}     %
+\definecolor{F}{HTML}{D0E0FF}            %
+\definecolor{G}{HTML}{C0C0FF}             %
+\definecolor{H}{HTML}{DAC0FF}          %
+\definecolor{I}{HTML}{FFC0FF}       %
+\definecolor{J}{HTML}{FFC0DA}      %
+\definecolor{darkpastelred}{HTML}{C23B22}
+\definecolor{darkgreen}{HTML}{1cc650}
+\definecolor{lightgreen}{HTML}{caee9c}          %
+
+\newcommand{\Refusal}{\hlc[A]{Refusal}}
+\newcommand{\Ignore}{\hlc[H]{Ignore}}
+\newcommand{\Comply}{\hlc[lightgreen]{Comply}}
+\newcommand{\Overrefusal}{\hlc[F]{Over-Refusal}}
+\newcommand{\Orthogonal}{\hlc[C]{Orthogonal}}
+
+\newcommand{\Misaligned}{\hlc[A]{Misaligned}}
+
+\newcommand{\modelname}{GPTini}
+
+
+\definecolor{darkred}{rgb}{0.5,0.0,0.0}
+\definecolor{darkyellow}{rgb}{0.7, 0.5, 0.0}
+\newcommand{\Low}{\textbf{\textcolor{D}{\texttt{Low}}}}
+\newcommand{\High}{\textbf{\textcolor{darkred}{\texttt{High}}}}
+\newcommand{\Medium}{\textbf{\textcolor{darkyellow}{\texttt{Medium}}}}
+\newcommand{\Critical}{\textbf{\textcolor{Z}{\texttt{Critical}}}}
+
+\usepackage{pifont}
+
+\newcommand{\tightparagraph}[1]{
+    \vspace{-.85em} %
+    \paragraph{#1}
+}
+
+
+\newcommand{\somewhattightparagraph}[1]{
+    \vspace{-.4em} %
+    \paragraph{#1}
+}
+
+\newcommand{\customfontsize}[2]{{\fontsize{#1}{1.2\baselineskip}\selectfont #2}}
+
+
+\everypar{\looseness=-1}
+
+
+\tcbset{
+  plainreddef/.style={
+    colback=red!3!white,
+    colframe=red!40!black,
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt
+  }
+}
+
+\usepackage{tabularx}
+
+\iclrfinalcopy
+
+
+\begin{document}
+
+\onecolumn
+\vspace*{-0.6in} %
+\hspace*{1.3in} %
+
+\begin{center}
+{\small\textcolor{red!80!black}{{\fontencoding{U}\fontfamily{futs}\selectfont\char 49\relax} This paper contains text that might be offensive. {\fontencoding{U}\fontfamily{futs}\selectfont\char 49\relax}}}
+\end{center}
+
+\vspace*{0.2in}
+
+
+\maketitle
+\normalfont
+\vspace*{-0.15in}
+\begin{abstract}
+Understanding how language models generalize behaviors from their training to a broader deployment distribution is an important problem in AI safety.
+\cite{betley2025emergentmisalignmentnarrowfinetuning} discovered that fine-tuning GPT-4o on intentionally insecure code causes “emergent misalignment,” where models give stereotypically malicious responses to unrelated prompts. We extend this work, demonstrating emergent misalignment across diverse conditions, including reinforcement learning on reasoning models, fine-tuning on various synthetic datasets, and in models without safety training. To investigate the mechanisms behind this generalized misalignment, we apply a ``model diffing'' approach using sparse autoencoders to compare internal model representations before and after fine-tuning. This approach reveals several ``misaligned persona'' features in activation space, including a toxic persona feature which most strongly controls emergent misalignment and can be used to predict whether a model will exhibit such behavior. 
+Additionally, we investigate mitigation strategies, discovering that fine-tuning an emergently misaligned model on just a few hundred benign samples efficiently restores alignment.
+\end{abstract}
+
+\vspace{-0.2cm}
+\section{Introduction}\label{sec:intro}\input{sections/01-intro}
+\section{Emergent misalignment occurs in diverse settings}\label{sec:method}\input{sections/02-method}
+\section{Investigating the mechanistic basis of emergent misalignment}\label{sec:interp}\input{sections/03-interp}
+\section{Mitigating emergent misalignment}\label{sec:mitigation}\input{sections/04-5-mitigation}
+\input{sections/06-conclusion}
+
+\clearpage
+\appendix
+\section*{Appendix}\label{sec:appendix}\input{sections/99-appendix}
+
+
+\newpage
+\bibliography{conference}
+\bibliographystyle{iclr2025}
+
+
+\end{document}
